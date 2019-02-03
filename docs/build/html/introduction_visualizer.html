@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction to the Visualizer &mdash; CVJSON 0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CVJSON
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to the CVJ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_cropper.html">Introduction to the Cropper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_augmenter.html">Introduction to the Augmenter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_painter.html">Introduction to the Painter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create_extension.html">Create an Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module_Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CVJSON</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Introduction to the Visualizer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/introduction_visualizer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction-to-the-visualizer">
+<h1>Introduction to the Visualizer<a class="headerlink" href="#introduction-to-the-visualizer" title="Permalink to this headline">¶</a></h1>
+<p>The real beauty of the library is the extension objects.  Each object can inherit
+from each other.  If you want to extend your handle then just import the extension
+you want.</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="p">{</span><span class="n">package_name</span><span class="p">}</span><span class="o">.</span><span class="n">exentsions</span><span class="o">.</span><span class="n">Cropper</span> <span class="kn">import</span> <span class="nn">Cropper</span>
+
+<span class="n">json_path</span>         <span class="o">=</span> <span class="s2">&quot;path/to/your/json&quot;</span>
+<span class="n">image_folder_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/images&quot;</span>
+
+<span class="n">json_handle</span> <span class="o">=</span> <span class="n">Handle</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+<span class="n">cropper</span> <span class="o">=</span> <span class="n">Cropper</span><span class="p">(</span><span class="n">json_handle</span><span class="p">,</span> <span class="n">image_folder_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now that the cropper is instantiated we can crop images associated
+with files.  In the below example we crop all of the images to
+bounding box centers, but we defined a minimum size and a maximum size
+that means they will be at least the minimum and no greater than the maximum.
+There is a count of how many images each class will have during this process.
+An image threshold is used to stratify that count.  So if it was at 1000
+then all classes will have 1000 images associated with them in the json.</p>
+<p>There are more details in the code.</p>
+<p>The image_threshold is 0 because if it were anything else then we would undersample
+any class that is higher than the image threshold and oversample, using data augmentation, any class that is
+under the image_threshold. Right now I just want crops for each bounding box I have in the json file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="p">{</span><span class="n">package_name</span><span class="p">}</span><span class="o">.</span><span class="n">exentsions</span><span class="o">.</span><span class="n">Cropper</span> <span class="kn">import</span> <span class="nn">Cropper</span>
+
+<span class="n">json_path</span>         <span class="o">=</span> <span class="s2">&quot;path/to/your/json&quot;</span>
+<span class="n">image_folder_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/images&quot;</span>
+
+<span class="n">json_handle</span> <span class="o">=</span> <span class="n">Handle</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+<span class="n">cropper</span> <span class="o">=</span> <span class="n">Cropper</span><span class="p">(</span><span class="n">json_handle</span><span class="p">,</span> <span class="n">image_folder_path</span><span class="p">)</span>
+
+<span class="n">cropper</span><span class="o">.</span><span class="n">crop_images_boxes_centered</span><span class="p">(</span><span class="n">mininum_image_size</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="n">maximum_image_size</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">image_threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Booyah, with 7 lines of code we are able to crop, augment, oversample, undersample, and stratify images and produce
+a new json file that can be used for training.  Now your thinking, “where are the files?”, well if the save directory
+is not supplied then it pulls the image_folder_path directory and saves the images in that parent folder under {TIMESTAMP}_crop_default.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Benjamin Anderson Garrard.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

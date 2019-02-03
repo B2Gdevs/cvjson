@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction to the CVJ &mdash; CVJSON 0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction to the Cropper" href="introduction_cropper.html" />
+    <link rel="prev" title="Welcome to CVJSON’s documentation!" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CVJSON
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction to the CVJ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-use-this-library">Why Use This Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#coco-format-needed-don-t-skip-this-section">COCO Format Needed Don’t Skip This Section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#main-structure">Main Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-basics">The Basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cvj-object-is-a-dictionary">CVJ object is a Dictionary!?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iterating-the-cvj-object">Iterating the CVJ Object!?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-dictionary-subsets-of-the-json-data">Basic Dictionary Subsets of the JSON Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-data-insights">Basic Data Insights</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-convenience-and-the-traps">The Convenience and the Traps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-1">Example 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-2">Example 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-3">Example 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-4">Example 4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_cropper.html">Introduction to the Cropper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_augmenter.html">Introduction to the Augmenter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_painter.html">Introduction to the Painter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create_extension.html">Create an Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module_Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CVJSON</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Introduction to the CVJ</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction-to-the-cvj">
+<h1>Introduction to the CVJ<a class="headerlink" href="#introduction-to-the-cvj" title="Permalink to this headline">¶</a></h1>
+<p>This is the beginning documentation of a
+python project known as CVJSON.  The project
+is basically an extension module for python dictionaries
+that are handling COCO formatted data.</p>
+<div class="section" id="why-use-this-library">
+<h2>Why Use This Library<a class="headerlink" href="#why-use-this-library" title="Permalink to this headline">¶</a></h2>
+<p>There are a significant amount of reasons for using the library.
+However I am only going to talk about the 2 main ones.  Reducing the redundant
+utility scripting and this is a way to have everyone benefit from each others
+utility programming.</p>
+<p>If you needed more functionality and wrote a piece of code for it, add it to this
+library and then everyone else can benefit also.</p>
+</div>
+<div class="section" id="coco-format-needed-don-t-skip-this-section">
+<span id="coco-format"></span><h2>COCO Format Needed Don’t Skip This Section<a class="headerlink" href="#coco-format-needed-don-t-skip-this-section" title="Permalink to this headline">¶</a></h2>
+<p>The COCO format has different formats for different types of detections. We
+are looking at the object detection format for most of
+this library’s functionality.  Even though this library supports
+COCO, it is a partial support since the tracking is only done for portions
+of the format.  The next section describes how to format the json</p>
+<p>The basic template portion of COCO is like this</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;info&quot;</span> <span class="p">:</span> <span class="n">info</span><span class="p">,</span>
+<span class="s2">&quot;images&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="n">image</span><span class="p">],</span>
+<span class="s2">&quot;annotations&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="n">annotation</span><span class="p">],</span>
+<span class="s2">&quot;licenses&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="n">license</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then from here there is further formatting. An “annotation”
+needs to be in the below format which is part of the “annotations” list
+in the above example. Then categories list needs to be
+added to the above format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">From</span> <span class="n">COCO</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cocodataset</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="c1">#format-data</span>
+
+<span class="n">annotation</span>  <span class="p">:</span> <span class="p">{</span>
+              <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+              <span class="s2">&quot;image_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+              <span class="s2">&quot;category_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+              <span class="s2">&quot;segmentation&quot;</span><span class="p">:</span> <span class="n">RLE</span> <span class="ow">or</span> <span class="p">[</span><span class="n">polygon</span><span class="p">],</span>
+              <span class="s2">&quot;area&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+              <span class="s2">&quot;bbox&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">],</span>
+              <span class="s2">&quot;iscrowd&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">,</span>
+              <span class="p">}</span>
+
+<span class="n">categories</span>  <span class="p">:</span> <span class="p">[{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="s2">&quot;supercategory&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="p">}],</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="main-structure">
+<span id="id1"></span><h2>Main Structure<a class="headerlink" href="#main-structure" title="Permalink to this headline">¶</a></h2>
+<p>Which then leaves us with the main structure below. Since we have just
+added the “categories” list to the format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;info&quot;</span> <span class="p">:</span> <span class="n">info</span><span class="p">,</span>
+<span class="s2">&quot;images&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="n">image</span><span class="p">],</span>
+<span class="s2">&quot;annotations&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="n">annotation</span><span class="p">],</span>
+<span class="s2">&quot;licenses&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="n">license</span><span class="p">],</span>
+<span class="s2">&quot;categories&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">category</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>However, this library is pretty much just using and
+checking for the part of the json that is like below,
+if it is like the one above, that is fine, the library
+should be able to handle it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;images&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="n">image</span><span class="p">],</span>
+<span class="s2">&quot;annotations&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="n">annotation</span><span class="p">],</span>
+<span class="s2">&quot;categories&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">category</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Remember though that the json needs to have the annotation’s in the
+format like below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">annotation</span>  <span class="p">:</span> <span class="p">{</span>
+              <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+              <span class="s2">&quot;image_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+              <span class="s2">&quot;category_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+              <span class="s2">&quot;segmentation&quot;</span><span class="p">:</span> <span class="n">RLE</span> <span class="ow">or</span> <span class="p">[</span><span class="n">polygon</span><span class="p">],</span>
+              <span class="s2">&quot;area&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+              <span class="s2">&quot;bbox&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">],</span>
+              <span class="s2">&quot;iscrowd&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">,</span>
+              <span class="p">}</span>
+</pre></div>
+</div>
+<p>Also each image annotation must have at least “id”, “width”, “height”, and “file_name”
+from the structure below.  Think that every image annotation that is in the “images” list
+that is a part of the <a class="reference internal" href="#main-structure"><span class="std std-ref">Main Structure</span></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="s2">&quot;width&quot;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="s2">&quot;file_name&quot;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s2">&quot;license&quot;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="s2">&quot;flickr_url&quot;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s2">&quot;coco_url&quot;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s2">&quot;date_captured&quot;</span> <span class="p">:</span> <span class="n">datetime</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>The library does not support the “license”, “flickr_url”, “coco_url”,
+or “date_captured” keys.  If creating a json with this library or adding annotations it will be in the format
+below for image annoations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="s2">&quot;width&quot;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="s2">&quot;file_name&quot;</span> <span class="p">:</span> <span class="nb">str</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<p>Go to <a class="reference external" href="https://bitbucket.org/mayachitrainc/cvjson/src/master/">here</a> and download the git
+repo. Afterwards just change directory to the newly downloaded cvjson repo and type “pip install”.</p>
+<p>So a walk through of those steps would be like below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://bitbucket.org/mayachitrainc/cvjson/src/master/
+pip install cvjson/
+</pre></div>
+</div>
+<p>Now if you plan to use the Painter extension then there is another program to install.  That program is GMIC,
+which is a powerful plugin used in the GIMP editing software.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install gmic
+</pre></div>
+</div>
+<p>Now for further details go to <a class="reference internal" href="#the-basics"><span class="std std-ref">The Basics</span></a> to dive right in.</p>
+</div>
+<div class="section" id="the-basics">
+<span id="id2"></span><h2>The Basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
+<p>The basic object is a CVJ (Computer Vision JSON) which holds the json data, path, etc.</p>
+<p>Below is how to get the average area of each class and plot it
+using seaborn.  With three lines of code you now have more insights on
+object data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;the/path/to/your/json&quot;</span>
+
+<span class="n">cvj_object</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+<span class="n">classes</span> <span class="o">=</span> <span class="n">cvj_object</span><span class="o">.</span><span class="n">get_average_area_by_class</span><span class="p">(</span><span class="n">show_plot</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>An example of how one can get the class distribution would be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;/home/typhon/Downloads/full_xview_coco_.json&quot;</span>
+
+<span class="n">cvj_obj</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="o">=</span><span class="n">json_path</span><span class="p">)</span>
+<span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_distribution_of_class_id</span><span class="p">(</span><span class="n">show_plot</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above example returns a list of class id’s that
+are not unique.  But the real part is that this will
+use seaborn in the backend and generate a histogram
+based on that list.  The list is just returned in
+case you want to plot it differently.</p>
+<div class="section" id="cvj-object-is-a-dictionary">
+<h3>CVJ object is a Dictionary!?<a class="headerlink" href="#cvj-object-is-a-dictionary" title="Permalink to this headline">¶</a></h3>
+<p>A cool feature is that you can use this object just
+like a normal dictionary that you loaded your json file from.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;the/path/to/your/json&quot;</span>
+
+<span class="n">cvj_object</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+<span class="n">annotations</span> <span class="o">=</span> <span class="n">cvj_object</span><span class="p">[</span><span class="s2">&quot;annotations&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>All of the functions you would find in a dictionary is included
+with the object.  Mainly because it is using a dictionary to hold the
+information and not just the __dict__ that represents the object.
+If needing to understand what a __dict__ is for an python object, <a class="reference external" href="https://stackoverflow.com/questions/19907442/python-explain-dict-attribute/">here</a>
+is a link that gives a good idea.</p>
+<p>You can also iterate through the object just like you would
+if you loaded the json in to a python dictionary.</p>
+</div>
+<div class="section" id="iterating-the-cvj-object">
+<h3>Iterating the CVJ Object!?<a class="headerlink" href="#iterating-the-cvj-object" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;the/path/to/your/json&quot;</span>
+
+<span class="n">cvj_obj</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cvj_object</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output for that should be “images”, “categories”, and “annoations” if the
+supplied json is correct, which it should be since there are checks in place to
+see if it is a COCO formatted json.  For now only COCO is supported, but the idea
+to convert other JSON formats dealing with computer vision have been an idea.
+Most likely if that were to be supported it would take in the other JSON type and
+convert it to COCO and you would interact with it like a COCO formatted dictionary.</p>
+</div>
+<div class="section" id="basic-dictionary-subsets-of-the-json-data">
+<h3>Basic Dictionary Subsets of the JSON Data<a class="headerlink" href="#basic-dictionary-subsets-of-the-json-data" title="Permalink to this headline">¶</a></h3>
+<p>So the CVJ object creates dictionaries to quickly access data and
+a lot of the time these dictionaries will need to be used.</p>
+<p>Below is a coded example of all of the dictionaries that are
+regularly used and how to get them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">These aren&#39;t real enums, but class variables used like enums</span>
+
+<span class="sd">Dictionary enums:</span>
+<span class="sd">                * IMID_2_ANNS , Image ID to Annoations</span>
+<span class="sd">                * CLID_2_NAME, Class ID to Class Name</span>
+<span class="sd">                * CLNAME_2_CLID, Class name to Class ID</span>
+<span class="sd">                * IMID_2_FNAME, Image ID to File Name</span>
+<span class="sd">                * FNAME_2_IMID, File Name to Image ID</span>
+<span class="sd">                * IMID_2_FPATH, Image ID to File Path</span>
+<span class="sd">                * IMID_2_IMATTR, Image Id to Image Attributes</span>
+<span class="sd">                * CLID_2_ANNS, Class ID to Annotations</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;the/path/to/your/json&quot;</span>
+
+<span class="n">cvj_object</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+
+<span class="n">image_id_2_anns</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_dictionary</span><span class="p">(</span><span class="n">CVJ</span><span class="o">.</span><span class="n">IMID_2_ANNS</span><span class="p">)</span>
+<span class="n">class_id_2_class_name</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_dictionary</span><span class="p">(</span><span class="n">CVJ</span><span class="o">.</span><span class="n">CLID_2_NAME</span><span class="p">)</span>
+<span class="n">class_name_2_class_id</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_dictionary</span><span class="p">(</span><span class="n">CVJ</span><span class="o">.</span><span class="n">CLNAME_2_CLID</span><span class="p">)</span>
+<span class="n">image_id_2_file_name</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_dictionary</span><span class="p">(</span><span class="n">CVJ</span><span class="o">.</span><span class="n">IMID_2_FNAME</span><span class="p">)</span>
+<span class="n">file_name_2_image_id</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_dictionary</span><span class="p">(</span><span class="n">CVJ</span><span class="o">.</span><span class="n">FNAME_2_IMID</span><span class="p">)</span>
+<span class="n">image_id_2_file_path</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_dictionary</span><span class="p">(</span><span class="n">CVJ</span><span class="o">.</span><span class="n">IMID_2_FPATH</span><span class="p">)</span>
+<span class="n">image_id_2_image_attributes</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_dictionary</span><span class="p">(</span><span class="n">CVJ</span><span class="o">.</span><span class="n">IMID_2_IMATTR</span><span class="p">)</span>
+<span class="n">class_id_2_annotations</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_dictionary</span><span class="p">(</span><span class="n">CVJ</span><span class="o">.</span><span class="n">CLID_2_ANNS</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>One can use the getter methods that are similar to these dictionaries and grab the info like a normal, but
+the above dictionaries can also be used just in case.</p>
+</div>
+<div class="section" id="basic-data-insights">
+<h3>Basic Data Insights<a class="headerlink" href="#basic-data-insights" title="Permalink to this headline">¶</a></h3>
+<p>Each of the below are basic data insight methods that by defualt
+plot information out using seaborn in the backend.  Well, once you have
+loaded a correctly formatted JSON as described at the first section
+found here -&gt; <a class="reference internal" href="#coco-format"><span class="std std-ref">COCO Format Needed Don’t Skip This Section</span></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;the/path/to/your/json&quot;</span>
+
+<span class="n">cvj_object</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+
+<span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_class_count_by_image_id</span><span class="p">(</span><span class="n">some_image_id</span><span class="p">)</span>
+<span class="n">cvj_object</span><span class="o">.</span><span class="n">get_distribution_of_class_id</span><span class="p">()</span>
+<span class="n">cvj_object</span><span class="o">.</span><span class="n">get_distribution_of_area</span><span class="p">()</span>
+<span class="n">cvj_object</span><span class="o">.</span><span class="n">get_average_area_by_class</span><span class="p">()</span>
+<span class="n">cvj_object</span><span class="o">.</span><span class="n">get_bbox_count_by_class_dict</span><span class="p">()</span>
+<span class="n">cvj_object</span><span class="o">.</span><span class="n">get_average_side_lengths</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-convenience-and-the-traps">
+<h2>The Convenience and the Traps<a class="headerlink" href="#the-convenience-and-the-traps" title="Permalink to this headline">¶</a></h2>
+<p>The getter methods can return many types of values depending on what get
+method is called.  The first example is the normal way one would use a
+getter method.</p>
+<div class="section" id="example-1">
+<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;the/path/to/your/json&quot;</span>
+<span class="c1"># The image ID is arbitrary in this example</span>
+<span class="n">img_id</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># This grabs the annotations associated with that image id</span>
+<span class="n">annoations_for_img_id_one</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_image_id_2_anns</span><span class="p">(</span><span class="n">img_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example 1 shows the normal use of the get method.  The user puts in the image ID
+for which the method returns the annoations for that particular image.</p>
+<p>The return will change depending on what is or is not given.  The example below shows
+that the user will get the dictionary that is used to find the annotations in <strong>Example 1</strong>
+if there are no arguments given.</p>
+</div>
+<div class="section" id="example-2">
+<h3>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;the/path/to/your/json&quot;</span>
+
+<span class="c1"># The image ID is arbitrary in this example</span>
+<span class="n">img_id</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">cvj_obj</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+
+<span class="c1"># This grabs the dictionary from image ID to annoations from the data that was gathered</span>
+<span class="c1"># from the JSON file loaded in to the object during instantiation</span>
+<span class="n">image_id_2_anns_dict</span><span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_image_id_2_anns</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>So since the user now has the dictionary from the method they can use it like the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;the/path/to/your/json&quot;</span>
+
+<span class="c1"># The image ID is arbitrary in this example</span>
+<span class="n">img_id</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">cvj_obj</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+
+<span class="c1"># This grabs the dictionary from image ID to annoations from the data that was gathered</span>
+<span class="c1"># from the JSON file loaded in to the object during instantiation</span>
+<span class="n">image_id_2_anns_dict</span><span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_image_id_2_anns</span><span class="p">()</span>
+
+<span class="n">annotions_for_image_id_1</span> <span class="o">=</span> <span class="n">image_id_2_anns_dict</span><span class="p">[</span><span class="n">img_id</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Now the functionality of the same method can change even further on if some other json data that is supplied
+to the method.  Sometimes a need arises where one has manipulated the data in a new json-type dictionary
+and needs information from that dictionary.  This functionality is used within the Cropper extension/subclass.</p>
+<p><strong>RULE : If you supply this method with JSON data using the json_data variable, everything returned will always be from
+the newly supplied data</strong></p>
+</div>
+<div class="section" id="example-3">
+<h3>Example 3<a class="headerlink" href="#example-3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;the/path/to/your/json&quot;</span>
+<span class="n">some_other_json</span> <span class="o">=</span> <span class="s2">&quot;path/to/another/json&quot;</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">some_other_json</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+    <span class="n">other_json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+
+<span class="c1"># The image ID is arbitrary in this example</span>
+<span class="n">img_id</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">cvj_obj</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+
+<span class="c1"># This grabs the annotations associated with that image id from the supplied json data</span>
+<span class="n">annoations_for_img_id_one_from_other_json_data</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_image_id_2_anns</span><span class="p">(</span><span class="n">img_id</span><span class="o">=</span><span class="n">img_id</span><span class="p">,</span> <span class="n">json_data</span><span class="o">=</span><span class="n">other_json_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>What this is doing now is grabbing the data from the variable “other_json_data” and is searching for the annotations that
+are associated with the image id also supplied.  By default this is not how the method works obviously because it is not intuitive,
+but the need does arise where this functionality is preferable.</p>
+<p>Below shows that the user will get the dictionary that has keys as image IDs and values of annotations <strong>from the json data supplied to the
+json_data variable</strong>.</p>
+</div>
+<div class="section" id="example-4">
+<h3>Example 4<a class="headerlink" href="#example-4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;the/path/to/your/json&quot;</span>
+<span class="n">some_other_json</span> <span class="o">=</span> <span class="s2">&quot;path/to/another/json&quot;</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">some_other_json</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+    <span class="n">other_json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+
+<span class="c1"># The image ID is arbitrary in this example</span>
+<span class="n">img_id</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">cvj_obj</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+
+<span class="c1"># This grabs the dictionary from image ID to annoations for the supplied json data</span>
+<span class="n">image_id_2_anns_dict_for_some_other_json</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_image_id_2_anns</span><span class="p">(</span><span class="n">json_data</span><span class="o">=</span><span class="n">other_json_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So the above got the dictionary for the json_data that was supplied to the method rather than the json_data that
+is within the CVJ object.</p>
+<p>Now that that is settled there are more dictionary gathering methods that just
+that previous one.  These are all used to quickly find the data in the JSON that
+was supplied.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;/home/typhon/Downloads/full_xview_coco_.json&quot;</span>
+
+<span class="n">cvj_object</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">These get methods below are not used in the traditional sense right now.</span>
+<span class="sd">They are returning dictionaries and do not require arguments.</span>
+
+<span class="sd">That is the Trap in this library</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">file_name_2_img_id_dict</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_filename_2_image_id</span><span class="p">()</span>
+<span class="n">image_id_2_filename_dict</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_image_id_2_filename</span><span class="p">()</span>
+<span class="n">image_id_2_annotations_dict</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_image_id_2_anns</span><span class="p">()</span>
+<span class="n">image_id_2_image_attributes_dict</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_image_id_2_image_attribs</span><span class="p">()</span>
+
+<span class="n">class_name_2_id_dict</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_class_name_2_id</span><span class="p">()</span>
+<span class="n">class_id_2_name_dict</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_class_id_2_name</span><span class="p">()</span>
+
+<span class="n">image_folder_path</span> <span class="o">=</span> <span class="s2">&quot;/home/typhon/Downloads/full_view_test&quot;</span>
+
+<span class="c1"># To use get_image_id_2_filepath() the image folder path variable</span>
+<span class="c1"># must be set to the images associated with the JSON that has been supplied to the</span>
+<span class="c1"># CVJ object.</span>
+<span class="n">cvj_obj</span><span class="o">.</span><span class="n">image_folder_path</span> <span class="o">=</span> <span class="n">image_folder_path</span>
+<span class="n">image_id_2_filepath_dict</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_image_id_2_filepath</span><span class="p">()</span>
+
+<span class="c1"># this one is not a dictionary that gets returned it is a list</span>
+<span class="n">image_ids</span> <span class="o">=</span> <span class="n">cvj_obj</span><span class="o">.</span><span class="n">get_image_ids</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="introduction_cropper.html" class="btn btn-neutral float-right" title="Introduction to the Cropper" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to CVJSON’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Benjamin Anderson Garrard.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

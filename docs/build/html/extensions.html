@@ -1,0 +1,983 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>extensions package &mdash; CVJSON 0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="cvjson package" href="cvjson.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CVJSON
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to the CVJ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_cropper.html">Introduction to the Cropper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_augmenter.html">Introduction to the Augmenter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_painter.html">Introduction to the Painter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create_extension.html">Create an Extension</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module_Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cvjson.html">cvjson package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">extensions package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cvjson.extensions.augmenter">extensions.augmenter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cvjson.extensions.cropper">extensions.cropper module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cvjson.extensions.image_organizer">extensions.image_organizer module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cvjson.extensions.image_tester">extensions.image_tester module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cvjson.extensions.painter">extensions.painter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cvjson.extensions.visualizer">extensions.visualizer module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CVJSON</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Module_Documentation</a> &raquo;</li>
+        
+      <li>extensions package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/extensions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="extensions-package">
+<h1>extensions package<a class="headerlink" href="#extensions-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cvjson.extensions.augmenter">
+<span id="extensions-augmenter-module"></span><h2>extensions.augmenter module<a class="headerlink" href="#module-cvjson.extensions.augmenter" title="Permalink to this headline">¶</a></h2>
+<p>Author: Benjamin Anderson Garrard</p>
+<p>This script houses functions that transform images
+and the bounding boxes associated with them.</p>
+<dl class="class">
+<dt id="cvjson.extensions.augmenter.Augmenter">
+<em class="property">class </em><code class="descclassname">cvjson.extensions.augmenter.</code><code class="descname">Augmenter</code><span class="sig-paren">(</span><em>cvj</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.augmenter.Augmenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cvjson.html#cvjson.cvj.CVJ" title="cvjson.cvj.CVJ"><code class="xref py py-class docutils literal notranslate"><span class="pre">cvjson.cvj.CVJ</span></code></a></p>
+<p>The Augment class is used to augment images using
+the imgaug library.  just pip install imgaug if you
+do not have it.</p>
+<dl class="method">
+<dt id="cvjson.extensions.augmenter.Augmenter.augment_geo">
+<code class="descname">augment_geo</code><span class="sig-paren">(</span><em>patch</em>, <em>bboxes</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.augmenter.Augmenter.augment_geo" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method uses the imaug library
+<a class="reference external" href="https://github.com/aleju/imgaug">https://github.com/aleju/imgaug</a>
+to implement all augmentations since
+it can handle bounding boxes also.</p>
+<p>Rotation seems to rescale the bounding boxes too much
+so the rotation and flips should be handled by Detectron and not
+by this method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>patch</strong> (<em>numpy array</em>) – This numpy array is the image.  Opencv, skimage, or numpy can generate this.</li>
+<li><strong>bboxes</strong> (<em>numpy array</em>) – This numpy array holds the bounding boxes that are associated with this image.  They are needed to be in the format
+of [[x1, y1, x2, y2]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>numpy array</strong> (<em>The first parameter “img_aug” returned is the numpy array for the image.</em>)</li>
+<li><strong>numpy array</strong> (<em>The second parameter “bbox_” returned is the numpy array for the bounding boxes that have been</em>) – been transformed with the image returned in the first parameter.</li>
+<li><strong>numpy array</strong> (<em>The third parameter “patch” is the numpy array for the image before it was altered.</em>)</li>
+<li><strong>numpy array</strong> (<em>The fourth parameter “previous_boxes” returned is the numpy array for the bounding boxes that have</em>) – not been altered associated with the returned third parameter.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.augmenter.Augmenter.fancy_pca">
+<code class="descname">fancy_pca</code><span class="sig-paren">(</span><em>img</em>, <em>alpha_std=0.1</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.augmenter.Augmenter.fancy_pca" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fancy PCA is a photometric data augmentation technique that finds the most
+important color values, 3 because of the 3 channels, then gets a scaled intensity of
+the colors and augments with those intensity * a random variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>img</strong> (<em>numpy array with</em><em> (</em><em>h</em><em>, </em><em>w</em><em>, </em><em>rgb</em><em>) </em><em>shape</em><em>, </em><em>as ints between 0-255</em><em>)</em>) – </li>
+<li><strong>alpha_std</strong> (<em>how much to perturb/scale the eigen vecs and vals the paper used std=0.1</em>) – (Default value = 0.1)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>numpy array</strong> (<em>image-like array as float range(0, 1)</em>)</li>
+<li><strong>NOTE</strong> (<em>Depending on what is originating the image data and what is receiving</em>)</li>
+<li><em>the image data returning the values in the expected form is very important</em></li>
+<li><em>in having this work correctly. If you receive the image values as UINT 0-255</em></li>
+<li><em>then it’s probably best to return in the same format. (As this</em></li>
+<li><em>implementation does). If the image comes in as float values ranging from</em></li>
+<li><em>0.0 to 1.0 then this function should be modified to return the same.</em></li>
+<li><em>Otherwise this can lead to very frustrating and difficult to troubleshoot</em></li>
+<li><em>problems in the image processing pipeline.</em></li>
+<li><em>This is ‘Fancy PCA’ from</em></li>
+<li><strong># http</strong> (<em>//papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf</em>)</li>
+<li><em>#######################</em></li>
+<li><em>#### FROM THE PAPER ###</em></li>
+<li><em>#######################</em></li>
+<li><em>”The second form of data augmentation consists of altering the intensities</em></li>
+<li><em>of the RGB channels in training images. Specifically, we perform PCA on the</em></li>
+<li><em>set of RGB pixel values throughout the ImageNet training set. To each</em></li>
+<li><em>training image, we add multiples of the found principal components, with</em></li>
+<li><em>magnitudes proportional to the corresponding eigenvalues times a random</em></li>
+<li><em>variable drawn from a Gaussian with mean zero and standard deviation 0.1.</em></li>
+<li><em>Therefore to each RGB image pixel Ixy = [I_R_xy, I_G_xy, I_B_xy].T</em></li>
+<li><em>we add the following quantity</em></li>
+<li><em>[p1, p2, p3][α1λ1, α2λ2, α3λ3].T</em></li>
+<li><em>Where pi and λi are ith eigenvector and eigenvalue of the 3 × 3 covariance</em></li>
+<li><em>matrix of RGB pixel values, respectively, and αi is the aforementioned</em></li>
+<li><em>random variable. Each αi is drawn only once for all the pixels of a</em></li>
+<li><em>particular training image until that image is used for training again, at</em></li>
+<li><em>which point it is re-drawn. This scheme approximately captures an important</em></li>
+<li><em>property of natural images, namely, that object identity is invariant to</em></li>
+<li><em>change.”</em></li>
+<li><em>### END ###############</em></li>
+<li><em>Other useful resources for getting this working</em></li>
+<li><strong># https</strong> (<em>//groups.google.com/forum/#!topic/lasagne-users/meCDNeA9Ud4</em>)</li>
+<li><strong># https</strong> (<em>//gist.github.com/akemisetti/ecf156af292cd2a0e4eb330757f415d2</em>)</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.augmenter.Augmenter.transf_one_patch">
+<code class="descname">transf_one_patch</code><span class="sig-paren">(</span><em>patch</em>, <em>bboxes</em>, <em>PCA_Augment=True</em>, <em>edge_enhancement=False</em>, <em>color_jittering=True</em>, <em>preview=False</em>, <em>preview_boxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.augmenter.Augmenter.transf_one_patch" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to transform just one image at a time,
+this method also transforms the bounding boxes accordingly.</p>
+<p>Rotation and flipping is not handled within this function. #TODO: create a method that does the rotation and flipping.
+The reason for this is that the bounding boxes that are transformed become too
+large for small object detection.</p>
+<p><a class="reference external" href="https://arxiv.org/pdf/1708.06020.pdf">https://arxiv.org/pdf/1708.06020.pdf</a> is a paper explaining why these augmentations
+were chosen.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>patch</strong> (<em>numpy array</em>) – The image to augment</li>
+<li><strong>bboxes</strong> (<em>numpy array</em>) – A numpy array of the bounding boxes associated with the supplied image/patch</li>
+<li><strong>PCA_Augment</strong> (<em>bool</em>) – (Default value = True)
+Is a boolean that augments the image based on PCA color augmentation.
+PCA color augmentation just means taking scaled intensities of the most import
+colors and multiplying them through the image.</li>
+<li><strong>edge_enhancement</strong> (<em>bool</em>) – (Default value = False)
+Is a boolean that starts a convolution that enhances the edges in the image and makes them more
+prominent.  This could make classifier find edges more quickly and then find more
+complex features associated with the edges in later convolutions if using
+deep learning.</li>
+<li><strong>color_jittering</strong> (<em>bool</em>) – (Default value = True)
+This is a boolean to start adding pixel values ranging from -20 to 20 to RGB channels randomly</li>
+<li><strong>preview</strong> (<em>bool</em>) – (Default value = False)
+Is a boolean that starts up a comparison from the image/patch supplied to the new augmented one.</li>
+<li><strong>preview_boxes</strong> (<em>bool</em>) – (Default value = False)
+Is a boolean that allows the boxes to be drawn on the images in the preview.  The original and
+transformed versions.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>numpy array</strong> (<em>The first numpy array is the image/patch</em>)</li>
+<li><strong>numpy array</strong> (<em>The second numpy is the bounding boxes associated with the image.</em>)</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cvjson.extensions.cropper">
+<span id="extensions-cropper-module"></span><h2>extensions.cropper module<a class="headerlink" href="#module-cvjson.extensions.cropper" title="Permalink to this headline">¶</a></h2>
+<p>Primary Author: Benjamin Garrard’</p>
+<dl class="class">
+<dt id="cvjson.extensions.cropper.Cropper">
+<em class="property">class </em><code class="descclassname">cvjson.extensions.cropper.</code><code class="descname">Cropper</code><span class="sig-paren">(</span><em>cvj</em>, <em>image_folder_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.cropper.Cropper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cvjson.html#cvjson.cvj.CVJ" title="cvjson.cvj.CVJ"><code class="xref py py-class docutils literal notranslate"><span class="pre">cvjson.cvj.CVJ</span></code></a></p>
+<p>This class is an extension to the CVJ object.  This classes sole purpose is to crop
+images and produce new images.  This class uses the Augmenter class to generate new
+augmentations on the images produced if wanted.  #TODO replace the augment stuff with the augmenter</p>
+<dl class="method">
+<dt id="cvjson.extensions.cropper.Cropper.crop_images_bbox_centered">
+<code class="descname">crop_images_bbox_centered</code><span class="sig-paren">(</span><em>save_directory</em>, <em>max_image_size=768</em>, <em>min_image_size=128</em>, <em>max_bounding_box_size=600</em>, <em>scale=1</em>, <em>padding=0</em>, <em>padded_beforehand=False</em>, <em>image_threshold=0</em>, <em>cv2enum=2</em>, <em>testing=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.cropper.Cropper.crop_images_bbox_centered" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method takes every image found in the image_folder_path that was supplied and then gets every
+bounding box that is associated with each image and then crops an image to the size specified to this method,
+with each bounding box being centered in at leas one image.  So this means that if you have 600 bounding boxes
+you will get 600 image crops with each crop having a bounding box in the center.  Now there can be more since this
+also will want to augment images.  Just specify the image threshold and thats how many images each class will have
+where a bounding box of that class is centered inside the JSON.</p>
+<dl class="docutils">
+<dt>Files produced:</dt>
+<dd><p class="first">1: {TIMESTAMP}_coco_train.json</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>DESCRIPTION <span class="classifier-delimiter">:</span> <span class="classifier">The file that is produced for training.  If the image threshold</span></dt>
+<dd><p class="first">was supplied then this file will be stratified and have undersampled
+the images more strongly associated with the class that is most dominant
+in the json.  It also oversamples the rare classes through augmentation using
+the imgaug library</p>
+<p class="last">Format = COCO</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>2: {TIMESTAMP}_stratified_images.json</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>DESCRIPTION <span class="classifier-delimiter">:</span> <span class="classifier">The file that is produced during strafitication.  It has the filepaths</span></dt>
+<dd><p class="first">for all the images that are stored in {TIMESTAM}_coco_train.json</p>
+<p>Format = None</p>
+<p>Keys   = Class Ids</p>
+<dl class="last docutils">
+<dt>values = all images associated with each class including augments</dt>
+<dd>up to the threshold</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>3: {TIMESTAMP}_image_class_counts.json</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>DESCRIPTION <span class="classifier-delimiter">:</span> <span class="classifier">This file actually has the filepaths to each image associated with a class.</span></dt>
+<dd><p class="first">This is used for counts in the program and is why it is named like that.</p>
+<p>Format = None</p>
+<p>keys   = class_id</p>
+<dl class="last docutils">
+<dt>values = filepaths to all of the images associated with each class including augments</dt>
+<dd>regardless of the threshold</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>4: {TIMESTAMP}_augmented_image_class_filepaths.json</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>DESCRIPTION <span class="classifier-delimiter">:</span> <span class="classifier">The file that is produced when the stratification occurs and gives the</span></dt>
+<dd><p class="first">filepaths to the augmented images.  The path’s will break if moved so
+it is up to the user how they want to handle this file.</p>
+<p>Format = None</p>
+<p>Keys   = class ids</p>
+<p class="last">values = filepaths to augmented images associated to each class</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>5: {TIMESTAMP}_too_big.json</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>DESCRIPTION <span class="classifier-delimiter">:</span> <span class="classifier">This file contains the images and annotations for any bounding box size that was over the</span></dt>
+<dd><p class="first">maximum bounding box size set.</p>
+<p class="last">Format = COCO</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>save_directory</strong> (<em>string</em>) – The path to the directory where this will be saved.</li>
+<li><strong>max_image_size</strong> (<em>int</em><em>, </em><em>if a float is supplied then it will be truncated.</em>) – (Default value = 768)
+The maximum size an image can be. If the min_image_size
+is set to the same as this then all images will be square
+of the size supplied.  Otherwise there will be a range between
+the two.</li>
+<li><strong>min_image_size</strong> (<em>int</em><em>, </em><em>if a float is supplied then it will be truncated.</em>) – (Default value = 128)
+The minimum size an image can be. If the min_image_size
+is set to the same as this then all images will be square
+of the size supplied.  Otherwise there will be a range between
+the two.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>max_bounding_box_size <span class="classifier-delimiter">:</span> <span class="classifier">int, if a float is supplied then it will be truncated.</span></dt>
+<dd>(Default value = 600)
+The maximum size a bounding box can be.</dd>
+<dt>scale <span class="classifier-delimiter">:</span> <span class="classifier">int, if a float is supplied then it will be truncated.</span></dt>
+<dd>(Default value = 1)
+This is used to give take to scale get an image of the
+size of the bounding box scaled and squared.  It is not
+exact scaling but pretty close. The min and max sizes will
+allow the images to be within range of those, but still
+give some dynamics to the images being cropped if the scale
+is above 1.  However if 1 is used, it is by default, there will
+still be some dynamics in crops unless the min and max image sizes
+are set to the same thing.</dd>
+<dt>padding <span class="classifier-delimiter">:</span> <span class="classifier">int, if a float is supplied then it will be truncated.</span></dt>
+<dd>(Default value = 0)
+This parameter is used to pad images given the opencv padding enum supplied.
+If the padding is zero, it is by defualt, then the cropping will assume that
+your images were padded previously and not try to do it again.  If you receive
+an index out of bounds error, then most likely a bounding box was near and edge
+and there wasn’t enough image left to do the crop and increasing this parameter
+should clear that up.</dd>
+<dt>padded_beforehand <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd>(Default value = False)
+This tell the method if the image was padded beforehand.  If this is false then the method
+will pad image supplied by the amount of padding that is supplied.  However, the bounding boxes will
+not be tracked.  The best use for this is just to use the Painter class to pad, track, and inpaint and then
+use the cropper and keep this True and the padding match the padding used in the Painter class.</dd>
+<dt>image_threshold <span class="classifier-delimiter">:</span> <span class="classifier">int, if a float is supplied then it will be truncated.</span></dt>
+<dd>(Default value = 0)
+This parameter is what makes sure that the amount of images associated
+to each class is the same.  This is what stratifies your images in the JSON
+and if there aren’t enough images original to meet the threshold then more
+will be generated using the Augment class.  If the threshold is 0, it is
+by default, then cropping will be unlimited and no stratification will occur.</dd>
+<dt>cv2enum <span class="classifier-delimiter">:</span> <span class="classifier">int, however this is the same as the opencv border types.</span></dt>
+<dd>(Default value = cv2.BORDER_REFLECT)
+This parameter is the same as opencv’s border parameters.
+* BORDER_REPLICATE:     aaaaaa|abcdefgh|hhhhhhh
+* BORDER_REFLECT:       fedcba|abcdefgh|hgfedcb
+* BORDER_REFLECT_101:   gfedcb|abcdefgh|gfedcba
+* BORDER_WRAP:          cdefgh|abcdefgh|abcdefg
+* BORDER_CONSTANT:      iiiiii|abcdefgh|iiiiiii  with some specified ‘i’</dd>
+<dt>testing <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>This int is used for unit tests since this method is all about creating crops, writing them out
+and generating files.  We don’t need to test over a whole gigantic json all the time as well as images.
+Also we don’t want to have to create a new testing json.  So setting this int to anything other than 0
+makes the method only iterate through that many images.  So if it is set to 2 then it will generate crops
+from 2 images only.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Timestamp of when the method was called.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>If I have 7000 bounding boxes 3 classes where class 1 has 4000 bounding boxes, class 2 has 2000, and class 3 has 1000.
+If the image threshold is set to 3000 then class 1 will not have any augmentation and also only 3000 of the images associated
+with class one will be included in the {TIMESTAMP}_stratified_images_train.json that is produced.  Class 2 will have 1k of augments and
+class 3 will have 2k of augments.</p>
+<p>These augments rotate through the original images until the limit is reached and uses the
+Augment class to augment the images.</p>
+<p>NOTE:
+No matter what this method will always generate as many images as there are bounding boxes at a minimum.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cvjson.extensions.image_organizer">
+<span id="extensions-image-organizer-module"></span><h2>extensions.image_organizer module<a class="headerlink" href="#module-cvjson.extensions.image_organizer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cvjson.extensions.image_organizer.Image_Organizer">
+<em class="property">class </em><code class="descclassname">cvjson.extensions.image_organizer.</code><code class="descname">Image_Organizer</code><span class="sig-paren">(</span><em>cvj</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.image_organizer.Image_Organizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cvjson.html#cvjson.cvj.CVJ" title="cvjson.cvj.CVJ"><code class="xref py py-class docutils literal notranslate"><span class="pre">cvjson.cvj.CVJ</span></code></a></p>
+<dl class="method">
+<dt id="cvjson.extensions.image_organizer.Image_Organizer.combine_subfolders">
+<code class="descname">combine_subfolders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.image_organizer.Image_Organizer.combine_subfolders" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method combines the subfolders created by partition_images() in to one
+big folder of images.  Though this method should be able to work on any source folder
+as long as there are only images in the subfolders.</p>
+<p>This method is primarily used when the training algorithm can only hand a source directory of images
+and cannot walk the subfolders.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.image_organizer.Image_Organizer.convert_images">
+<code class="descname">convert_images</code><span class="sig-paren">(</span><em>convert_to='.png'</em>, <em>save_internal=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.image_organizer.Image_Organizer.convert_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method converts the images found in the image folder path that has been
+supplied to the CVJ object that this method is being called from. This method uses
+opencv to handle the conversion.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>convert_to</strong> (<em>string</em>) – <dl class="docutils">
+<dt>(Default = .png)</dt>
+<dd>This is the image type that this method will convert the images to.</dd>
+</dl>
+</li>
+<li><strong>= bool</strong> (<em>save_internal</em>) – (Default = False)
+This will save the internal json data to the supplied json path to the object calling this method if this is true.
+Refer to “Introduction to the CVJ” for more information about supplying a json path to the CVJ object</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.image_organizer.Image_Organizer.gather_negatives_to_internal_json">
+<code class="descname">gather_negatives_to_internal_json</code><span class="sig-paren">(</span><em>negative_image_path=None</em>, <em>move_images=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.image_organizer.Image_Organizer.gather_negatives_to_internal_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to gather any negatives generated from the Painter class
+and store them in the internal json data of this object. If the move_images varibale
+is True then it will also move the images that were tranferred to the image folder path
+that is set inside the object.  Not the negative_image_path that has been supplied to this
+method.  If the negative_image_path is none then this object will look in the image folder path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>negative_image_path</strong> (<em>string</em>) – (Default = None)
+This is the path to a image folder that has negative sample type images created by the
+Painter class.</li>
+<li><strong>move_images</strong> (<em>bool</em>) – <dl class="docutils">
+<dt>(Defaul = False)</dt>
+<dd>The variable is used to tell the object if the images that are in the negative image folder path
+should be moved to the image folder path that has been set with cvj_obj.image_folder_path = your/actual/images/to/use</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.image_organizer.Image_Organizer.move_images">
+<code class="descname">move_images</code><span class="sig-paren">(</span><em>list_of_images=None</em>, <em>new_image_path=None</em>, <em>from_this=False</em>, <em>transfer=False</em>, <em>set_new_path=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.image_organizer.Image_Organizer.move_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method just moves the images that are associated with the json
+to the newly supplied path.  The path must be a directory, however if the
+directory does not exist then it will make one for you.  The object then
+sets the image_folder_path attribute to the new location of the images.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>list_of_images</strong> (<em>list</em>) – <dl class="docutils">
+<dt>(Default = None)</dt>
+<dd>This is a list of image filepaths just in case there is a need to move images in a list to a new place.</dd>
+</dl>
+</li>
+<li><strong>new_image_path</strong> (<em>string</em>) – (Default = None)
+The directory to move the images from or to</li>
+<li><strong>from_this</strong> (<em>bool</em>) – <dl class="docutils">
+<dt>(Default = False)</dt>
+<dd>This tells this method if the images should be coming from the image directory supplied using cvj_obj.image_folder_path = “path/to/images”.
+Or if it is coming to the image location supplied with cvj_obj.image_folder_path.</dd>
+</dl>
+</li>
+<li><strong>transfer</strong> (<em>bool</em>) – <dl class="docutils">
+<dt>(Default = False)</dt>
+<dd>This tells the method if there is a transfer of images from the list_of_images variable and have nothing to do with the
+internal json data and tranfers them to the new location supplied with new_image_path.</dd>
+</dl>
+</li>
+<li><strong>set_new_path</strong> (<em>bool</em>) – <dl class="docutils">
+<dt>(Default = False)</dt>
+<dd>This variable is used to set the image folder path of this object instance to the new image folder path that has been supplied.</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>string</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">The supplied directory path.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.image_organizer.Image_Organizer.partition_images">
+<code class="descname">partition_images</code><span class="sig-paren">(</span><em>K</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.image_organizer.Image_Organizer.partition_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method partitions the images in to K subfolders in the image directory that
+has already been supplied to the object.  This does not partition them in any specific order
+is just rotates through the new folders it creates and places an image in each one until
+it is done.  This is mainly used when the folder size is too big to view or has some other weird
+behaviours when there are too many images consolidated.</p>
+<p>See “Introduction to the Image Organizer” for more details on setting the folder path.
+Just remember the image_folder_path attribute must be set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>K</strong> (<em>int</em>) – The number of folders the images should be partitioned in to.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cvjson.extensions.image_tester">
+<span id="extensions-image-tester-module"></span><h2>extensions.image_tester module<a class="headerlink" href="#module-cvjson.extensions.image_tester" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cvjson.extensions.image_tester.Image_Tester">
+<em class="property">class </em><code class="descclassname">cvjson.extensions.image_tester.</code><code class="descname">Image_Tester</code><span class="sig-paren">(</span><em>cvj</em>, <em>image_folder_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.image_tester.Image_Tester" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cvjson.html#cvjson.cvj.CVJ" title="cvjson.cvj.CVJ"><code class="xref py py-class docutils literal notranslate"><span class="pre">cvjson.cvj.CVJ</span></code></a></p>
+<p>The Image_Tester class takes the json Handle
+and can perform checks and clean the images</p>
+<dl class="method">
+<dt id="cvjson.extensions.image_tester.Image_Tester.remove_unreadable_files">
+<code class="descname">remove_unreadable_files</code><span class="sig-paren">(</span><em>save=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.image_tester.Image_Tester.remove_unreadable_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method just scans the images supplied to the object
+with the image folder path using opencv.  It goes through and
+opens each file and if there is an error opening the file then it
+removes that from the json file and moves the unreadable file</p>
+<p>NOTE: The path needs to be associated with the json path that was supplied for this to work.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>None</strong> – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cvjson.extensions.painter">
+<span id="extensions-painter-module"></span><h2>extensions.painter module<a class="headerlink" href="#module-cvjson.extensions.painter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cvjson.extensions.painter.Painter">
+<em class="property">class </em><code class="descclassname">cvjson.extensions.painter.</code><code class="descname">Painter</code><span class="sig-paren">(</span><em>cvj</em>, <em>image_folder_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.painter.Painter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cvjson.html#cvjson.cvj.CVJ" title="cvjson.cvj.CVJ"><code class="xref py py-class docutils literal notranslate"><span class="pre">cvjson.cvj.CVJ</span></code></a></p>
+<p>The Painter class is used to do painting on
+the images such as inpainting and hopefully
+outpainting.  This class relies on GMIC</p>
+<dl class="docutils">
+<dt>Generation method enums:</dt>
+<dd><ul class="first last simple">
+<li>INPAINT, using the multiscale patch based inpainted method when
+generating data.</li>
+</ul>
+</dd>
+<dt>Sample type enums:</dt>
+<dd><ul class="first last simple">
+<li>POSITIVE, deals with positives samples</li>
+<li>NEGATIVE, deals with negatives samples</li>
+<li>ALL, deals with both sample types</li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="cvjson.extensions.painter.Painter.ALL">
+<code class="descname">ALL</code><em class="property"> = 9000</em><a class="headerlink" href="#cvjson.extensions.painter.Painter.ALL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.extensions.painter.Painter.INPAINT">
+<code class="descname">INPAINT</code><em class="property"> = 0</em><a class="headerlink" href="#cvjson.extensions.painter.Painter.INPAINT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.extensions.painter.Painter.NEGATIVE">
+<code class="descname">NEGATIVE</code><em class="property"> = 0</em><a class="headerlink" href="#cvjson.extensions.painter.Painter.NEGATIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.extensions.painter.Painter.POSTIVE">
+<code class="descname">POSTIVE</code><em class="property"> = 1</em><a class="headerlink" href="#cvjson.extensions.painter.Painter.POSTIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.painter.Painter.clear_checkpoints">
+<code class="descname">clear_checkpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.painter.Painter.clear_checkpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method clears out any pickled checkpoints found in the
+checkpoints folder that is near where the script was calling a
+generation method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.painter.Painter.generate_negatives">
+<code class="descname">generate_negatives</code><span class="sig-paren">(</span><em>save_directory=None</em>, <em>n_cores=1</em>, <em>padding=0</em>, <em>generation_method=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.painter.Painter.generate_negatives" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method generates negative examples using the generation_method selected.  This means
+that the images supplied will be used to generate new images without any postive examples on
+the returned images.  This can be done via inpainting only as of right now</p>
+<p>TODO: Make more methods to generate negative examples</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>img_path</strong> (<em>string</em>) – (Default value = None)
+A path to the image directory</li>
+<li><strong>n_cores</strong> (<em>int</em>) – (Default value = 1)
+The number of cores that should be used for generation.  Normally higher means faster, but more RAM used.</li>
+<li><strong>padding</strong> (<em>int</em>) – (Default value = 0)
+How much padding there should be in the image.  This should be relatively high to not get out of bounds errors</li>
+<li><strong>generation_method</strong> (<em>int</em>) – (Default value = INPAINT)
+This is a value that determines the type of algorithm that will be used to generate the negative examples.
+This is also part of the enums that are associated with the class so since one will most likely be using this
+outside of the class.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+<span class="kn">from</span> <span class="nn">cvjson.extensions.painter</span> <span class="kn">import</span> <span class="n">Painter</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/json&quot;</span>
+
+<span class="n">cvj_obj</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+<span class="n">painter_obj</span> <span class="o">=</span> <span class="n">Painter</span><span class="p">(</span><span class="n">cvj_obj</span><span class="p">)</span>
+
+<span class="c1"># Since we imported the Painter class from the painter module we can use the class variable INPAINT with Painter.INPAINT</span>
+<span class="n">painter_obj</span><span class="o">.</span><span class="n">generate_negative_backgrounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_directory</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">generation_method</span><span class="o">=</span><span class="n">Painter</span><span class="o">.</span><span class="n">INPAINT</span><span class="p">):</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong> – The only return value is named “negative_filepaths”.  This value is a list of all the filepaths to
+the generated images that are negative sample types.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.painter.Painter.generate_postives">
+<code class="descname">generate_postives</code><span class="sig-paren">(</span><em>save_directory=None</em>, <em>n_cores=1</em>, <em>padding=0</em>, <em>generation_method=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.painter.Painter.generate_postives" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method generates negative examples using the generation_method selected.  This means
+that the images supplied will be used to generate new images without any postive examples on
+the returned images.  This can be done via inpainting only as of right now</p>
+<p>TODO: Make more methods to generate negative examples</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>img_path</strong> (<em>string</em>) – (Default value = None)
+A path to the image directory</li>
+<li><strong>n_cores</strong> (<em>int</em>) – (Default value = 1)
+The number of cores that should be used for generation.  Normally higher means faster, but more RAM used.</li>
+<li><strong>padding</strong> (<em>int</em>) – (Default value = 0)
+How much padding there should be in the image.  This should be relatively high to not get out of bounds errors</li>
+<li><strong>generation_method</strong> (<em>int</em>) – (Default value = INPAINT)
+This is a value that determines the type of algorithm that will be used to generate the negative examples.
+This is also part of the enums/class variable that are associated with the class so since one will most likely be using this
+outside of the class.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+<span class="kn">from</span> <span class="nn">cvjson.extensions.painter</span> <span class="kn">import</span> <span class="n">Painter</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/json&quot;</span>
+
+<span class="n">cvj_obj</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+<span class="n">painter_obj</span> <span class="o">=</span> <span class="n">Painter</span><span class="p">(</span><span class="n">cvj_obj</span><span class="p">)</span>
+
+<span class="c1"># Since we imported the Painter class from the painter module we can use the class variable INPAINT with Painter.INPAINT</span>
+<span class="n">painter_obj</span><span class="o">.</span><span class="n">generate_negative_backgrounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_directory</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">generation_method</span><span class="o">=</span><span class="n">Painter</span><span class="o">.</span><span class="n">INPAINT</span><span class="p">):</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong> – The only return value is named “positive_filepaths”.  This value is a list of all the filepaths to
+the generated images that are positive sample types.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.painter.Painter.load_checkpoint">
+<code class="descname">load_checkpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.painter.Painter.load_checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is not working as of right now, but is in the generation code.  This is one
+of the methods that will be corrected in the near future.</p>
+<p>This method loads the checkpoints which are pickled lists of
+filepaths for completed images or currently being worked on images.</p>
+<p class="last">This is useful for sharing data between processes or if an interruption occurs during
+the generation, then the program can recover its position of what images are left
+to work on.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.painter.Painter.remove_generated">
+<code class="descname">remove_generated</code><span class="sig-paren">(</span><em>sample_type</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.painter.Painter.remove_generated" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sample_type</strong> (<em>int</em>) – This is an enum/class variable associated with the Painter class.  This variable is used to determine what generated sample types
+will be removed from the image directory where the generated images are located.  Each generated image should have a beginning name
+start of “negative” or “positive”</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong> – This is the list of filepaths of images that are being removed.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.painter.Painter.start_checkpoint">
+<code class="descname">start_checkpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.painter.Painter.start_checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is not working as of right now, but is in the generation code.  This is one
+of the methods that will be corrected in the near future.</p>
+<p class="last">This method starts the checkpoints by creating the checkpoints folder and
+creating empty pickle files.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.extensions.painter.Painter.update_checkpoint">
+<code class="descname">update_checkpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.painter.Painter.update_checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is not working as of right now, but is in the generation code.  This is one
+of the methods that will be corrected in the near future.</p>
+<p class="last">This method updates the checkpoints in the the checkpoints folder.
+These checkpoints are the lists of filepaths for images completed or
+currently being workedon by GMIC.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cvjson.extensions.visualizer">
+<span id="extensions-visualizer-module"></span><h2>extensions.visualizer module<a class="headerlink" href="#module-cvjson.extensions.visualizer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cvjson.extensions.visualizer.Visualizer">
+<em class="property">class </em><code class="descclassname">cvjson.extensions.visualizer.</code><code class="descname">Visualizer</code><span class="sig-paren">(</span><em>cvj</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.visualizer.Visualizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cvjson.html#cvjson.cvj.CVJ" title="cvjson.cvj.CVJ"><code class="xref py py-class docutils literal notranslate"><span class="pre">cvjson.cvj.CVJ</span></code></a></p>
+<p>The Visualizer class takes the json Handle
+and can perform checks and clean the images</p>
+<dl class="method">
+<dt id="cvjson.extensions.visualizer.Visualizer.visualize_bboxes">
+<code class="descname">visualize_bboxes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.extensions.visualizer.Visualizer.visualize_bboxes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="cvjson.html" class="btn btn-neutral" title="cvjson package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Benjamin Anderson Garrard.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

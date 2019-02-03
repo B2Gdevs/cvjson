@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Create an Extension &mdash; CVJSON 0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Module_Documentation" href="modules.html" />
+    <link rel="prev" title="Introduction to the Painter" href="introduction_painter.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CVJSON
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to the CVJ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_cropper.html">Introduction to the Cropper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_augmenter.html">Introduction to the Augmenter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_painter.html">Introduction to the Painter</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Create an Extension</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-cvjson-objects-are-structured">How CVJSON Objects Are Structured</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extension-on-top-of-cvj">Extension On Top Of CVJ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#when-to-create-an-extension">When to Create an Extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-methods-to-the-new-extension-subclass">Adding methods to the new extension/subclass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#when-to-add-your-method-to-an-existing-extension">When to Add Your Method to an Existing Extension</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module_Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CVJSON</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Create an Extension</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/create_extension.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="create-an-extension">
+<h1>Create an Extension<a class="headerlink" href="#create-an-extension" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to learning how to extend this library.  The whole point of this library
+is to congregate code that everyone can benefit from when dealing with COCO formatted
+JSON files.  So knowing how this structure works is an important thing to know.</p>
+<div class="section" id="how-cvjson-objects-are-structured">
+<h2>How CVJSON Objects Are Structured<a class="headerlink" href="#how-cvjson-objects-are-structured" title="Permalink to this headline">¶</a></h2>
+<p>Below shows how the CVJ class wraps around a python dictionary.  It has all of the same functions as a dictionary
+because they are coming from an actual dictionary.</p>
+<a class="reference internal image-reference" href="_images/cvjson_base.png"><img alt="alternate text" class="align-center" src="_images/cvjson_base.png" style="width: 350px; height: 250px;" /></a>
+<div class="section" id="extension-on-top-of-cvj">
+<h3>Extension On Top Of CVJ<a class="headerlink" href="#extension-on-top-of-cvj" title="Permalink to this headline">¶</a></h3>
+<p>An extension is just a subclass of the CVJ object.</p>
+<a class="reference internal image-reference" href="_images/extension.png"><img alt="alternate text" class="align-center" src="_images/extension.png" style="width: 350px; height: 250px;" /></a>
+</div>
+</div>
+<div class="section" id="when-to-create-an-extension">
+<h2>When to Create an Extension<a class="headerlink" href="#when-to-create-an-extension" title="Permalink to this headline">¶</a></h2>
+<p>You should create a subclass/extension of CVJ if the methods that you are making are very different from the capabilities
+that a current extension should be able to do.  Lets say you need to start running detections and want to maintain your code
+and allow others to use it easily also.  You would then create an extension/subclass called Detector since the functionality is very
+different from the other extensions/subclasses.  Where you would start is by making sure all of the CVJ objects attributes are passed
+to the new extension/subclass when the user instantiates your Detector object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="k">class</span> <span class="nc">Detector</span><span class="p">(</span><span class="n">CVJ</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The Detector class takes the CVJ object and makes it more</span>
+<span class="sd">    than it was by adding functionality to it and trains object</span>
+<span class="sd">    detection algorithms.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cvj</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1">#### Super Class Vars Start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_json_path</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_json_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_json_data</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_json_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_folder_path</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_image_folder_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_class_counts_path</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_image_class_counts_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_class_to_filepath_data</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_class_to_filepath_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_id_2_anns_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_image_id_2_anns_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_class_id_2_name_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_class_id_2_name_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_class_name_2_id_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_class_name_2_id_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img_id_2_filename_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_img_id_2_filename_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filename_2_image_id_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_filename_2_image_id_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imageid_to_filepath_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_imageid_to_filepath_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_id_2_image_attribs</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_image_id_2_image_attribs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_class_id_2_anns_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_class_id_2_anns_dict</span>
+        <span class="c1">### Super Class Vars End</span>
+</pre></div>
+</div>
+<p>In the example above where the comments “Super Class Vars..” are, that should be copied and pasted in to your new extension/subclass.  The user shouldn’t have
+to continue putting in the json path or the image folder path everytime they downcast to a new subclass, so transferring that knowledge between classes is best.
+Also they may have already loaded some data that is quite large and your new extension shouldn’t make them load that data again.  Thats why we reference the data from
+the super class and we do it to all of the stored dictionaries to increase runtime performance.</p>
+<div class="section" id="adding-methods-to-the-new-extension-subclass">
+<h3>Adding methods to the new extension/subclass<a class="headerlink" href="#adding-methods-to-the-new-extension-subclass" title="Permalink to this headline">¶</a></h3>
+<p>When you write the new methods that you want to introduce, you should make clearly named variables or at least comment on what they mean above them.</p>
+<p>If you must have short variables, please use the following as an example of how to do it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="k">class</span> <span class="nc">Detector</span><span class="p">(</span><span class="n">CVJ</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The Detector class takes the CVJ object and makes it more</span>
+<span class="sd">    than it was by adding functionality to it and trains object</span>
+<span class="sd">    detection algorithms.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cvj</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1">#### Super Class Vars Start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_json_path</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_json_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_json_data</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_json_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_folder_path</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_image_folder_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_class_counts_path</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_image_class_counts_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_class_to_filepath_data</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_class_to_filepath_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_id_2_anns_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_image_id_2_anns_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_class_id_2_name_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_class_id_2_name_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_class_name_2_id_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_class_name_2_id_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img_id_2_filename_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_img_id_2_filename_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filename_2_image_id_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_filename_2_image_id_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imageid_to_filepath_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_imageid_to_filepath_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_image_id_2_image_attribs</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_image_id_2_image_attribs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_class_id_2_anns_dict</span> <span class="o">=</span> <span class="n">cvj</span><span class="o">.</span><span class="n">_class_id_2_anns_dict</span>
+        <span class="c1">### Super Class Vars End</span>
+
+
+    <span class="k">def</span> <span class="nf">detect_something</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>For this new class called Detector, it probably would be useful to abstract the method calls some.  A good design would probably be where
+they only have to call one or two methods to do the majority of the tasks.  This means that for more convenience they lose comprehensiveness.
+Convenience is the goal of this library, so for the common use-case one or two methods should do the bulk of the work.</p>
+<p>An example of what I mean by abstracting the methods would be similar to how the user would use the code below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+<span class="kn">from</span> <span class="nn">cvjson.extensions.detector</span> <span class="kn">import</span> <span class="n">Detector</span>
+
+<span class="n">json_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/json&quot;</span>
+<span class="n">image_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/images&quot;</span>
+
+<span class="c1"># co = CVJ Object</span>
+<span class="n">co</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+
+<span class="n">detector</span> <span class="o">=</span> <span class="n">Detector</span><span class="p">(</span><span class="n">co</span><span class="p">)</span>
+
+<span class="c1"># Abstracted method.</span>
+<span class="n">detector</span><span class="o">.</span><span class="n">detect_object</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">image_path</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="n">detector</span><span class="o">.</span><span class="n">SMALL_CAR</span><span class="p">)</span>
+<span class="n">detector</span><span class="o">.</span><span class="n">detect_object</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">image_path</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="n">detector</span><span class="o">.</span><span class="n">BOATS</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The user only sees that the method that is used is to detect different types of objects.  They don’t see how it is implemented and they only
+have to use one method for most of the detections they want.</p>
+</div>
+</div>
+<div class="section" id="when-to-add-your-method-to-an-existing-extension">
+<h2>When to Add Your Method to an Existing Extension<a class="headerlink" href="#when-to-add-your-method-to-an-existing-extension" title="Permalink to this headline">¶</a></h2>
+<p>When adding functionality to an existing extension just write the method like normal and then write a unit test for it. Then add documentation
+to the new method using the numpydoc format.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules.html" class="btn btn-neutral float-right" title="Module_Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction_painter.html" class="btn btn-neutral" title="Introduction to the Painter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Benjamin Anderson Garrard.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction to the Painter &mdash; CVJSON 0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Create an Extension" href="create_extension.html" />
+    <link rel="prev" title="Introduction to the Augmenter" href="introduction_augmenter.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CVJSON
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to the CVJ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_cropper.html">Introduction to the Cropper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_augmenter.html">Introduction to the Augmenter</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction to the Painter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-of-gmic">Installation of GMIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-setup">Basic Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-methods">Main Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-variables">Other Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="create_extension.html">Create an Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Module_Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CVJSON</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Introduction to the Painter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/introduction_painter.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction-to-the-painter">
+<h1>Introduction to the Painter<a class="headerlink" href="#introduction-to-the-painter" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to the Painter extension/class.  This class handles finding the bounding boxes
+in an image, including the reflected ones, masks them and inpaints them using <a class="reference external" href="https://gmic.eu/which/">GMIC</a>
+is a plugin that is used in the GIMP editing software.</p>
+<div class="section" id="installation-of-gmic">
+<h2>Installation of GMIC<a class="headerlink" href="#installation-of-gmic" title="Permalink to this headline">¶</a></h2>
+<p>GMIC has its own interpreter and needs to be installed.  Thankfully it is just the one command below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install gmic
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-setup">
+<h2>Basic Setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
+<p>Setup the objec to associate json with the images.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvjson.extensions.painter</span> <span class="kn">import</span> <span class="n">Painter</span>
+
+<span class="n">json_path</span>         <span class="o">=</span> <span class="s2">&quot;path/to/your/json&quot;</span>
+<span class="n">image_folder_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/images&quot;</span>
+
+<span class="n">cvj_obj</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="o">=</span><span class="n">json_path</span><span class="p">)</span>
+<span class="n">augmenter</span> <span class="o">=</span> <span class="n">Painter</span><span class="p">(</span><span class="n">cvj_obj</span><span class="p">)</span>
+
+<span class="n">painter</span><span class="o">.</span><span class="n">image_folder_path</span> <span class="o">=</span> <span class="n">image_folder_path</span>
+</pre></div>
+</div>
+<p>and now we are ready to move on to the main method of this class as of right now.</p>
+<div class="section" id="main-methods">
+<h3>Main Methods<a class="headerlink" href="#main-methods" title="Permalink to this headline">¶</a></h3>
+<p>The generate_negatives() method is used to completely inpaint the image and not preserve the original image
+inside of the newly inpainted image.</p>
+<p>The generate_positives() method is used to completely inpaint the image and preserve the original image
+inside of the newly inpainted image.  So it just inserts the original images in to the new inpainted images.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">painter</span><span class="o">.</span><span class="n">generate_negatives</span><span class="p">(</span> <span class="n">save_directory</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">generation_method</span><span class="o">=</span><span class="n">INPAINT</span><span class="p">)</span>
+<span class="n">painter</span><span class="o">.</span><span class="n">generate_positives</span><span class="p">(</span> <span class="n">save_directory</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">generation_method</span><span class="o">=</span><span class="n">INPAINT</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Both of these methods create the images in a temp folder inside the save_directory given and then when the method is finished running
+it moves the images to the save save directory and then updates the annotations.  They both have multiprocessing capabilities and need to have
+the generation method told to it.</p>
+</div>
+<div class="section" id="other-variables">
+<h3>Other Variables<a class="headerlink" href="#other-variables" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>generation method</strong> is set in place for people who build on this extension.  If someone creates a new generation method for painting in the image,
+then they should make that method in the Painter class, set a class variable that is used to for generate_negatives and generate_positives to associate
+with the method.  The “INPAINT” argument that is passed is a class variable which is treated like an enum for the Painter class.  “INPAINT” tells the
+method to use the multi-patchbased methods to generate the images.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="create_extension.html" class="btn btn-neutral float-right" title="Create an Extension" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction_augmenter.html" class="btn btn-neutral" title="Introduction to the Augmenter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Benjamin Anderson Garrard.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

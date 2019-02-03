@@ -1,0 +1,1547 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cvjson package &mdash; CVJSON 0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="extensions package" href="extensions.html" />
+    <link rel="prev" title="Module_Documentation" href="modules.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CVJSON
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction to the CVJ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_cropper.html">Introduction to the Cropper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_augmenter.html">Introduction to the Augmenter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_painter.html">Introduction to the Painter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create_extension.html">Create an Extension</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module_Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">cvjson package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-cvjson.cvj">cvjson.cvj module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="extensions.html">extensions package</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CVJSON</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Module_Documentation</a> &raquo;</li>
+        
+      <li>cvjson package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/cvjson.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cvjson-package">
+<h1>cvjson package<a class="headerlink" href="#cvjson-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-cvjson.cvj">
+<span id="cvjson-cvj-module"></span><h2>cvjson.cvj module<a class="headerlink" href="#module-cvjson.cvj" title="Permalink to this headline">¶</a></h2>
+<p>Author: Benjamin Anderson Garrard</p>
+<p>Official documentation <a class="reference external" href="https://bengarrard.bitbucket.io/">https://bengarrard.bitbucket.io/</a></p>
+<p>This script creates a handle object for json
+in the COCO format.  The aim for this handle is
+to make redundant code less redundant, safer,
+easy to use, and data extraction very simple.</p>
+<p>This api uses CVJ as the super class
+and all other subclasses are meant to
+extend the functionality.</p>
+<p>Structure this library uses is as follows.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">annotations</span>  <span class="p">:</span>
+            <span class="p">[{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="s2">&quot;image_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="s2">&quot;category_id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="s2">&quot;segmentation&quot;</span><span class="p">:</span> <span class="n">RLE</span> <span class="ow">or</span> <span class="p">[</span><span class="n">polygon</span><span class="p">],</span>
+                <span class="s2">&quot;area&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                <span class="s2">&quot;bbox&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">],</span>
+                <span class="s2">&quot;iscrowd&quot;</span><span class="p">:</span> <span class="mi">0</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="p">}]</span>
+
+<span class="n">categories</span>  <span class="p">:</span> <span class="p">[{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="s2">&quot;supercategory&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="p">}],</span>
+
+<span class="n">images</span>      <span class="p">:</span>  <span class="p">[{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="s2">&quot;file_name&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="nb">int</span>
+                <span class="p">}],</span>
+</pre></div>
+</div>
+<p>More information on how this structure is chosen read “Introduction to the CVJ”</p>
+<dl class="class">
+<dt id="cvjson.cvj.CVJ">
+<em class="property">class </em><code class="descclassname">cvjson.cvj.</code><code class="descname">CVJ</code><span class="sig-paren">(</span><em>json_path=None</em>, <em>image_folder_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The CVJ class is the most basic class and will
+only give information based on the current json file supplied.
+This means that regarding purely the json file and accompanying files, images,
+etc.  This will describe that data or help generate the information in to usable
+data.  Anything else that is outside gaining insight or gathering data from the json will
+be in the form of an extension.</p>
+<dl class="docutils">
+<dt>Dictionary enums:</dt>
+<dd><ul class="first last simple">
+<li>IMID_2_ANNS , Image ID to Annoations</li>
+<li>CLID_2_NAME, Class ID to Class Name</li>
+<li>CLNAME_2_CLID, Class name to Class ID</li>
+<li>IMID_2_FNAME, Image ID to File Name</li>
+<li>FNAME_2_IMID, File Name to Image ID</li>
+<li>IMID_2_FPATH, Image ID to File Path</li>
+<li>IMID_2_IMATTR, Image Id to Image Attributes</li>
+<li>CLID_2_ANNS, Class ID to Annotations</li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="cvjson.cvj.CVJ.CLID_2_ANNS">
+<code class="descname">CLID_2_ANNS</code><em class="property"> = 7</em><a class="headerlink" href="#cvjson.cvj.CVJ.CLID_2_ANNS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.cvj.CVJ.CLID_2_NAME">
+<code class="descname">CLID_2_NAME</code><em class="property"> = 1</em><a class="headerlink" href="#cvjson.cvj.CVJ.CLID_2_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.cvj.CVJ.CLNAME_2_CLID">
+<code class="descname">CLNAME_2_CLID</code><em class="property"> = 2</em><a class="headerlink" href="#cvjson.cvj.CVJ.CLNAME_2_CLID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.cvj.CVJ.FNAME_2_IMID">
+<code class="descname">FNAME_2_IMID</code><em class="property"> = 4</em><a class="headerlink" href="#cvjson.cvj.CVJ.FNAME_2_IMID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.cvj.CVJ.IMID_2_ANNS">
+<code class="descname">IMID_2_ANNS</code><em class="property"> = 0</em><a class="headerlink" href="#cvjson.cvj.CVJ.IMID_2_ANNS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.cvj.CVJ.IMID_2_FNAME">
+<code class="descname">IMID_2_FNAME</code><em class="property"> = 3</em><a class="headerlink" href="#cvjson.cvj.CVJ.IMID_2_FNAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.cvj.CVJ.IMID_2_FPATH">
+<code class="descname">IMID_2_FPATH</code><em class="property"> = 5</em><a class="headerlink" href="#cvjson.cvj.CVJ.IMID_2_FPATH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.cvj.CVJ.IMID_2_IMATTR">
+<code class="descname">IMID_2_IMATTR</code><em class="property"> = 6</em><a class="headerlink" href="#cvjson.cvj.CVJ.IMID_2_IMATTR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cvjson.cvj.CVJ.NEGATIVE_CLASS">
+<code class="descname">NEGATIVE_CLASS</code><em class="property"> = 63428483</em><a class="headerlink" href="#cvjson.cvj.CVJ.NEGATIVE_CLASS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.categ_idx_to_coco_categ">
+<code class="descname">categ_idx_to_coco_categ</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.categ_idx_to_coco_categ" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a pseudo COCO category annotation.
+This type of annotation is mostly useless besides the actual class id.
+AKA category id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> (<em>int</em>) – This parameter is the class id, AKA the category id</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>dict</strong> –<ul class="simple">
+<li>keys   = “id”, “name”, “supercategory”.  For further explanation see “Introduction to the CVJ”</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.clean_categories">
+<code class="descname">clean_categories</code><span class="sig-paren">(</span><em>save=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.clean_categories" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method cleans the internal json data’s categories.  It decides that
+if there is no annotations for a category it removes the category found from
+the internal json data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>save</strong> (<em>bool</em><em>, </em><em>optional</em>) – (Default value = False)
+This option is used to save the internal json data to the json file
+that was used to give the CVJ object it’s data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong> – The return value is named “remove_list” and it is returning a list of
+categories that have been removed from the internal json data.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.clean_images">
+<code class="descname">clean_images</code><span class="sig-paren">(</span><em>save=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.clean_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method cleans the internal json data’s images.  It decides that
+if there is no annotations for an image then it removes the image found from
+the internal json data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>save</strong> (<em>bool</em><em>, </em><em>optional</em>) – (Default value = False)
+This option is used to save the internal json data to the json file
+that was used to give the CVJ object it’s data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong> – The return value is named “remove_list” and it is returning a list of
+image attributes that have been removed from the internal json data.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.create_empty_json">
+<code class="descname">create_empty_json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.create_empty_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method assists in making the json for a COCO format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>dict</strong> –<ul class="simple">
+<li>keys   = “images”, “categories”, “annotations”. Example found in “Introduction to the CVJ”</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.create_json">
+<code class="descname">create_json</code><span class="sig-paren">(</span><em>new_json</em>, <em>save_path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.create_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a json file from a dictionary that is
+supplied. If no save path is supplied then it creates a file
+in the folder containing the json path supplied to the object
+and the file name will be “_new_json_DEFAULT.json”</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>new_json</strong> (<em>dict</em>) – </li>
+<li><strong>save_path</strong> (<em>string</em>) – (Default value = None)
+Needs to be a path with a file name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p><strong>dict</strong> –</p>
+<ul class="simple">
+<li>The same dict that was supplied</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.create_json_by_class">
+<code class="descname">create_json_by_class</code><span class="sig-paren">(</span><em>list_of_ids</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.create_json_by_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a json based on the class
+id’s supplied.  The json will only have annotations
+for those classes.</p>
+<p>The json is not saved in this method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>list_of_ids</strong> (<em>list</em>) – A list of class ids to be included in to the json dictionary</li>
+<li><strong>verbose</strong> (<em>bool</em>) – (Default value = False)
+This prints out a verbose message of what iteration count it is at when it
+is searching through the json through the annotations.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p><strong>dict</strong> –</p>
+<ul class="simple">
+<li>keys   = class ids</li>
+<li>values = annotations associated with each class</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.create_json_of_class_focused_images">
+<code class="descname">create_json_of_class_focused_images</code><span class="sig-paren">(</span><em>list_of_class_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.create_json_of_class_focused_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method generates a dictionary in the COCO format json that this library
+uses from a file generated by the cropper known as “{TIMESTAMP}_image_class_counts.json”.</p>
+<p>That file has the filepaths to each image in the “{TIMESTAMP}_coco_train.json” and the class
+the images that were created were based off of.</p>
+<p>Using that file, this method, given a list of ids, turns the selected class id’s in to a new json
+that has the images most strongly associated with those IDs.  By strong I mean that class will be in the center
+of these images if the crop_images_bbox_centered() was used.  There could be more annotations for another class on the image.</p>
+<p>NOTE: This method does not save the dictionary.  The user must save it. create_json() can do the trick.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>list_of_class_ids</strong> (<em>list</em>) – A list of class ids to single out for the new json</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>dict</strong> –<ul class="simple">
+<li>keys   = “images”, “annotations”, “categories”</li>
+<li>values = [image], [annotation], [category]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.entry_bbox">
+<code class="descname">entry_bbox</code><span class="sig-paren">(</span><em>bbox</em>, <em>class_id</em>, <em>image_id</em>, <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.entry_bbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method assists with entering valid annotations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bbox</strong> (<em>list</em>) – This parameter is bounding box coordinates in the format of [x, y, width, height]</li>
+<li><strong>class_id</strong> (<em>int</em>) – This parameter is the class id also known as the category id</li>
+<li><strong>image_id</strong> (<em>int</em>) – This parameter is the image id that this annotation belongs to</li>
+<li><strong>id</strong> (<em>int</em>) – This parameter is the id of the annotation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p><strong>dict</strong> –</p>
+<ul class="simple">
+<li>keys   = annotation format found in “Introduction to the CVJ”</li>
+<li>values = the values supplied.</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.entry_img">
+<code class="descname">entry_img</code><span class="sig-paren">(</span><em>file_name</em>, <em>height</em>, <em>width</em>, <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.entry_img" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method assists with entering an image and the attributes of
+that image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_name</strong> (<em>string</em>) – This parameter is the filename of the image that is being inserted in to the json file</li>
+<li><strong>height</strong> (<em>int</em>) – This parameter is the height of the image. Normally this is equivalent to img.shape[0] when using numpy</li>
+<li><strong>width</strong> (<em>int</em>) – This parameter is the width of the image. Normally this is equivalent to img.shape[1] when using numpy</li>
+<li><strong>id</strong> (<em>int</em>) – This parameter is the image id and file name are the most crucial components to this entry.
+Without the image_id most of the functions in this object will not help the user)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p><strong>dict</strong> –</p>
+<ul class="simple">
+<li>keys   = “file_name”, “height”, “width”, “id”.  For more explanation see “Introduction to the CVJ”</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_annotations">
+<code class="descname">get_annotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns all of the annotations from the internal json data
+of the CVJ object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_average_area_by_class">
+<code class="descname">get_average_area_by_class</code><span class="sig-paren">(</span><em>show_plot=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_average_area_by_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method will get the average area for each class
+and returns the values in a dictionary.
+If the show_plot param is true then it plots the
+dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>show_plot</strong> (<em>bool</em>) – (Default value = True)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>dict</strong> –<ul class="simple">
+<li>Keys   = class ids</li>
+<li>values = average areas associated with each class id</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_average_side_lengths">
+<code class="descname">get_average_side_lengths</code><span class="sig-paren">(</span><em>show_plot=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_average_side_lengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method makes a list of the areas from the
+annotations and just appends them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>show_plot</strong> (<em>bool</em>) – (Default value = True)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>list</strong> (<em>list</em>) – A list of the square root of the areas.</li>
+<li><em>Now if the show_plot parameter is equal to True.</em></li>
+<li><em>Then seaborn will plot it and wait for input.</em></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_category_ids">
+<code class="descname">get_category_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_category_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns all of the category ids from the internal json data
+of the CVJ object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_category_names">
+<code class="descname">get_category_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_category_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns all of the category names from the internal json data
+of the CVJ object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_class_count_by_filename">
+<code class="descname">get_class_count_by_filename</code><span class="sig-paren">(</span><em>filename</em>, <em>show_plot=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_class_count_by_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method will count how many examples of bounding boxes exist for each
+class is on the supplied filename.</p>
+<p>NOTE:
+The filename supplied must be a part of the json file that is stored within
+the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> (<em>string</em>) – This parameter is the filename of the image the user wants to find
+out how many bounding boxes are on the image and what there classes are</li>
+<li><strong>show_plot</strong> (<em>bool</em>) – (Default value = True)
+This parameter when set to true generates a bar plot showing the class id on the y axis</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p><strong>dict</strong> –</p>
+<ul class="simple">
+<li>keys   = class ids</li>
+<li>values = count of annotations for each of the class ids</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_class_count_by_img_id">
+<code class="descname">get_class_count_by_img_id</code><span class="sig-paren">(</span><em>img_id</em>, <em>show_plot=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_class_count_by_img_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method will count how many examples of bounding boxes exist for each
+class on the supplied image id. If the show_plot variable is true then it
+generates a bar plot for the image id and the puts the classes on the x axis
+and the counts on the y axis</p>
+<p>NOTE:
+The image id supplied must be a part of the json file that is stored within
+the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>img_id</strong> (<em>int</em>) – This parameter is the image id of the img the user wants to find out
+how many bounding boxes are on the image and what there classes are</li>
+<li><strong>show_plot</strong> (<em>bool</em>) – (Default value = True)
+This parameter when set to true generates a bar plot showing the class ids on the x axis</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p><strong>dict</strong> –</p>
+<ul class="simple">
+<li>keys   = class ids</li>
+<li>values = count of annotations for each of the class ids</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_class_id_2_anns">
+<code class="descname">get_class_id_2_anns</code><span class="sig-paren">(</span><em>class_id=None</em>, <em>json_data=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_class_id_2_anns" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary that has the class id
+as the key and the annotations to that class as the values.</p>
+<p>If there is already one created it just returns the previously made one
+to improve performance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>class_id</strong> (<em>int</em>) – (Default = None)
+This is the class ID for the annotations associated with that class.</li>
+<li><strong>json_data</strong> (<em>dict</em>) – <p>(Default value = None)
+This is the loaded data from a COCO formatted JSON file.</p>
+<blockquote>
+<div><ul>
+<li>If this is supplied all data returned will be from this variable.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><strong>verbose</strong> (<em>bool</em>) – (Default value = False)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>dict</strong> (<em>dict</em>)</li>
+<li><em>This returns only if the img_id is not supplied to this method</em> –<ul>
+<li>keys   = class ids</li>
+<li>values = annotations associated with each class id</li>
+</ul>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_class_id_2_anns_count">
+<code class="descname">get_class_id_2_anns_count</code><span class="sig-paren">(</span><em>show_plot=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_class_id_2_anns_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function gets the count of bboxes by class ID. If show_plot is True (Default)
+then this will have a seaborn barchart pop up.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>show_plot</strong> (<em>bool</em>) – (Default value = True)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>dict</strong> –<ul class="simple">
+<li>keys   = class ids</li>
+<li>values = count of annotations for each of the class ids</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_class_id_2_name">
+<code class="descname">get_class_id_2_name</code><span class="sig-paren">(</span><em>class_id=None</em>, <em>json_data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_class_id_2_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a dictionary using the class id, AKA “category id”, as the
+keys and the category names, AKA class names, as the values.</p>
+<p>If there is already one created it just returns the previously made one
+to improve performance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>class_id</strong> (<em>ing</em>) – (Default = None)
+This is the class ID for a class that is in the JSON data of the object
+or the supplied JSON data from the json_data variable.</li>
+<li><strong>json_data</strong> (<em>dict</em>) – (Default value = None)
+This is the loaded data from a COCO formatted JSON file.
+* If this is supplied all data returned will be from this variable.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p><strong>dict</strong> –</p>
+<dl class="docutils">
+<dt>This is only returned if there is no class_id supplied to the method.</dt>
+<dd><ul class="first last simple">
+<li>keys   = category ids</li>
+<li>values = category names associated with each category id</li>
+</ul>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_class_name_2_id">
+<code class="descname">get_class_name_2_id</code><span class="sig-paren">(</span><em>class_name=None</em>, <em>json_data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_class_name_2_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a dictionary using the category name as the key and the
+category id’s are the values.</p>
+<p>If there is already one created it just returns the previously made one
+to improve performance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>class_name</strong> (<em>string</em>) – (Default = None)
+This is the class name for a class that is in the JSON data of the object
+or the supplied JSON data from the json_data variable.</li>
+<li><strong>json_data</strong> (<em>dict</em>) – <p>(Default value = None)
+This is the loaded data from a COCO formatted JSON file.</p>
+<blockquote>
+<div><ul>
+<li>If this is supplied all data returned will be from this variable.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first"><strong>int</strong> (<em>int</em>) – If class_name is supplied then this method returns the class ID.</p>
+</li>
+<li><p class="first"><strong>dict</strong> (<em>dict</em>) –</p>
+<dl class="docutils">
+<dt>This is only returned if there is no class_name supplied to the method.</dt>
+<dd><ul class="first last simple">
+<li>keys   = class names like “bear”, “car”, “alien”, “person”, etc</li>
+<li>values = the category ids or also known as the class ids.  The number that represents the class.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_count_files_by_class">
+<code class="descname">get_count_files_by_class</code><span class="sig-paren">(</span><em>verbose=False</em>, <em>show_plot=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_count_files_by_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is only used with the image_class_count.json file generated by the Cropper
+class.  This just shows how many files were made for each class.  If cropping
+to bounding box center was used then it will either have the same amount of images
+for each class as there is bounding boxes for each class or more through augments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>verbose</strong> (<em>bool</em>) – (Default value = False)
+This parameter has the console output information during it gathering the data.  The verbose will look similar to
+“Class ID 5 has 280 images”</li>
+<li><strong>show_plot</strong> (<em>bool</em>) – (Default value = False)
+This parameter when set to true generates a bar plot showing the class id on the x axis</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p><strong>dict</strong> –</p>
+<ul class="simple">
+<li>keys   = class ids</li>
+<li>values = image counts.  (How many images are associated with the class id)</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_dictionary">
+<code class="descname">get_dictionary</code><span class="sig-paren">(</span><em>cvj_enum</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>CVJ.IMID_2_ANNS = Image ID to Annoations
+CVJ.CLID_2_NAME = Class ID to Class Name
+CVJ.CLNAME_2_CLID = Class name to Class ID
+CVJ.IMID_2_FNAME = Image ID to File Name
+CVJ.FNAME_2_IMID = File Name to Image ID
+CVJ.IMID_2_FPATH = Image ID to File Path
+CVJ.IMID_2_IMATTR = Image Id to Image Attributes
+CVJ.CLID_2_ANNS = Class ID to Annotations</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_distribution_of_area">
+<code class="descname">get_distribution_of_area</code><span class="sig-paren">(</span><em>show_plot=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_distribution_of_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method makes a list of the areas from the
+annotations and just appends them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>show_plot</strong> (<em>bool</em>) – (Default value = True)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong> – A list of appended areas of the bounding boxes.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>So an example of
+what the returned list could look like is:</p>
+<p>[100,100,2000,3000,4000,2405,500,50,500]</p>
+<p>Now if the show_plot parameter is equal to True.
+Then seaborn will plot it and wait for input.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_distribution_of_class_id">
+<code class="descname">get_distribution_of_class_id</code><span class="sig-paren">(</span><em>show_plot=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_distribution_of_class_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method makes a list of the category id’s from the
+annotations and just appends them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>show_plot</strong> (<em>bool</em>) – (Default value = True)</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>So an example of
+what the list could look like is:</p>
+<p>[1,1,2,3,4,5,5,5,5]</p>
+<p>Now if the show_plot parameter is equal to True.
+Then seaborn will plot it and wait for input.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_filename_2_image_id">
+<code class="descname">get_filename_2_image_id</code><span class="sig-paren">(</span><em>filename=None</em>, <em>json_data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_filename_2_image_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a dictionary using the filename as the key and the image
+id as the value.</p>
+<p>If there is already one created it just returns the previously made one
+to improve performance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>img_id</strong> (<em>int</em>) – (Default = None)
+This is the file name for an image that is in the JSON data of the object
+or the supplied JSON data from the json_data variable.</li>
+<li><strong>json_data</strong> (<em>dict</em>) – <p>(Default value = None)
+This is the loaded data from a COCO formatted JSON file.</p>
+<blockquote>
+<div><ul>
+<li>If this is supplied all data returned will be from this variable.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first"><strong>int</strong> (<em>int</em>) – This is the image ID of the file name that was supplied to this method.</p>
+</li>
+<li><p class="first"><strong>dict</strong> (<em>dict</em>) –</p>
+<dl class="docutils">
+<dt>This is only returned if there is no file name supplied to the method.</dt>
+<dd><ul class="first last simple">
+<li>keys   = filenames with the extension so the will have “.png”, “.tif”, or something similar</li>
+<li>values = image ids</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_filenames">
+<code class="descname">get_filenames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_filenames" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns the filnames of images from the internal json data
+of the CVJ object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_image_id_2_anns">
+<code class="descname">get_image_id_2_anns</code><span class="sig-paren">(</span><em>img_id=None</em>, <em>json_data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_image_id_2_anns" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a dictionary using the “image_id” as the key
+and the value is the annotations list that is described at the beginning of this script.
+If there is already one created it just returns the previously made one
+to improve performance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>img_id</strong> (<em>int</em>) – (Default = None)
+This is the image ID for an image that is in the JSON data of the object
+or the supplied JSON data from the json_data variable.</li>
+<li><strong>json_data</strong> (<em>dict</em>) – (Default value = None)
+This is the loaded data from a COCO formatted JSON file.
+* If this is supplied all data returned will be from this variable.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p><strong>dict</strong> –</p>
+<dl class="docutils">
+<dt>This is only returned if img_id is not supplied to the method.</dt>
+<dd><ul class="first last simple">
+<li>keys   = image ids</li>
+<li>values = annotations associated with the image id</li>
+</ul>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_image_id_2_filename">
+<code class="descname">get_image_id_2_filename</code><span class="sig-paren">(</span><em>img_id=None</em>, <em>json_data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_image_id_2_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a dictionary using the image id as the key and the values
+are the filenames associated with the image id.</p>
+<p>If there is already one created it just returns the previously made one
+to improve performance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>img_id</strong> (<em>int</em>) – (Default = None)
+This is the image ID for an image that is in the JSON data of the object
+or the supplied JSON data from the json_data variable.</li>
+<li><strong>json_data</strong> (<em>dict</em>) – (Default value = None)
+This is the loaded data from a COCO formatted JSON file.
+* If this is supplied all data returned will be from this variable.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first"><strong>string</strong> (<em>string</em>) – If the img_id is supplied then this method will return the file name associated
+with that image id.</p>
+</li>
+<li><p class="first"><strong>dict</strong> (<em>dict</em>) –</p>
+<dl class="docutils">
+<dt>This is only returned if there is no img_id supplied to the method.</dt>
+<dd><ul class="first last simple">
+<li>keys   = image ids</li>
+<li>values = filenames with the extension so the will have “.png”, “.tif”, or something similar</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_image_id_2_filepath">
+<code class="descname">get_image_id_2_filepath</code><span class="sig-paren">(</span><em>img_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_image_id_2_filepath" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method will not work unless an image filepath has been supplied.
+So first set the filepath like so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cvj_object</span><span class="o">.</span><span class="n">image_folder_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">images</span>
+</pre></div>
+</div>
+<p>This method creates a dictionary using the image id as the key and
+the filepaths associated with the image id as the value.</p>
+<p>If there is already one created it just returns the previously made one
+to improve performance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>img_id</strong> (<em>int</em>) – (Default = None)
+This is the image ID for an image that is in the JSON data of the object
+or the supplied JSON data from the json_data variable.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul>
+<li><strong>string</strong> (<em>string</em>) – This is the filepath of the supplied Image ID</li>
+<li><strong>dict</strong> (<em>dict</em>) –<dl class="docutils">
+<dt>This returns only if the img_id is not supplied to this method</dt>
+<dd><ul class="first last simple">
+<li>keys   = image ids</li>
+<li>values = the filepaths associated with each image id</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_image_id_2_image_attribs">
+<code class="descname">get_image_id_2_image_attribs</code><span class="sig-paren">(</span><em>img_id=None</em>, <em>json_data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_image_id_2_image_attribs" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a dictionary using the image id as the key and
+the attributes of that image as the value</p>
+<p>If there is already one created it just returns the previously made one
+to improve performance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>img_id</strong> (<em>int</em>) – (Default = None)
+This is the image ID for an image that is in the JSON data of the object
+or the supplied JSON data from the json_data variable.</li>
+<li><strong>json_data</strong> (<em>dict</em>) – <p>(Default value = None)
+This is the loaded data from a COCO formatted JSON file.</p>
+<blockquote>
+<div><ul>
+<li>If this is supplied all data returned will be from this variable.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first"><strong>dict</strong> (<em>dict</em>) – If the image id is supplied to the img_id variable then this method returns
+a dict with the attributes of the image.  For more information on the format
+of the dictionary returned look at the top of this script or refer to the official
+documentation page here -&gt; <a class="reference external" href="https://bengarrard.bitbucket.io/">https://bengarrard.bitbucket.io/</a> and look for
+“Introduction to the CVJ”.</p>
+</li>
+<li><p class="first"><strong>dict</strong> (<em>dict</em>) –</p>
+<dl class="docutils">
+<dt>This returns only if the img_id is not supplied to this method</dt>
+<dd><ul class="first last simple">
+<li>keys   = image ids</li>
+<li>values = image attributes associated with each image id</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_image_ids">
+<code class="descname">get_image_ids</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_image_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns the image id’s from the internal json data
+of the CVJ object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>list</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.get_max_counts_per_img">
+<code class="descname">get_max_counts_per_img</code><span class="sig-paren">(</span><em>show_plot=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.get_max_counts_per_img" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method will plot the most demanding image for cropping each bounding box.
+This method goes through each image and counts the bounding boxes corresponding to the image.
+It then stores the maximum count of annotations for a class for that image in a dictionary with
+the key as the img id.</p>
+<p>This ends up being that each img_id will show the maximum count of a class out of all
+classes within each image.  This will be plotted using seaborn.</p>
+<p>To be quite honest I don’t think that the chart is very useful, however the returned data can be.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>show_plot</strong> (<em>bool</em>) – (Default value = True)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul>
+<li><strong>dict</strong> (<em>dict</em>) – <a href="#id1"><span class="problematic" id="id2">*</span></a>keys   = image ids<p><a href="#id3"><span class="problematic" id="id4">*</span></a>values = the counts of the most prominent class on each image</p>
+</li>
+<li><strong>list</strong> (<em>list</em>) – The list of the classes that are in the same order as the keys in the returned dictionary</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>If I have img_id 1 and I want to know which class is the most dominant in this image
+then I just simply call this method like below</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cvj</span> <span class="kn">import</span> <span class="n">CVJ</span>
+
+<span class="n">cvj_object</span> <span class="o">=</span> <span class="n">CVJ</span><span class="p">(</span><span class="n">json_path</span><span class="p">)</span>
+<span class="n">image_id_2_class_counts</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">cvj_object</span><span class="o">.</span><span class="n">get_max_counts_per_img</span><span class="p">(</span><span class="n">show_plot</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">image_id</span><span class="p">,</span> <span class="n">class_count</span> <span class="ow">in</span> <span class="n">image_id_2_class_counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The img_id {} has class {} as the most dominant class with {} annotations&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_count</span><span class="p">,</span> <span class="n">classes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">class_count</span><span class="p">))</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Then in the plot I just look at the x axis and find the number 1 and then see what class is</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.load_json">
+<code class="descname">load_json</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.load_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is just a helper method that loads external
+files into data and is returned to the user.  It
+does not get stored in to the object.  The path to
+the json must be set to load new json data in the
+object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>string</em>) – This path must be to any valid json file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>dict</strong> –<ul class="simple">
+<li>keys   = User defined</li>
+<li>values = User defined</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.remove_by_name">
+<code class="descname">remove_by_name</code><span class="sig-paren">(</span><em>list_of_image_names</em>, <em>save=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.remove_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method removes all of the annotations and images associated with
+the list of image names supplied.  The image names must be the basenames of any
+file.  This method will clean the internal json data categories after completeing the
+removal of images and the annotations associated with them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>list_of_image_names</strong> (<em>list</em>) – This argument is the list of basenames for the images to be removed.  So they must
+be names like “8.png, 8.tif, 4.jpeg” and not like “home/User/8.png, server/Desktop/5.tif”.</li>
+<li><strong>save</strong> (<em>bool</em><em>, </em><em>optional</em>) – (Default value = False)
+This option is used to save the internal json data to the json file
+that was used to give the CVJ object it’s data.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>list</strong> (<em>list</em>) – The first return value is named “list_of_image_names” which is just the list
+of names that was supplied.</li>
+<li><strong>list</strong> (<em>list</em>) – The second return value is named “imgs” and it is returning a list of
+image attributes that have been removed from the internal json data.</li>
+<li><strong>list</strong> (<em>list</em>) – The third return value is named “anns” and it is returning a list of
+annotations that have been removed from the internal json data.</li>
+<li><strong>list</strong> (<em>list</em>) – The fourth return value is named “cats” and it is returning a list of
+categories that have been removed from the internal json data. If those
+cateogories no longer have annotations associated with them.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.replace_extensions_of_json_images">
+<code class="descname">replace_extensions_of_json_images</code><span class="sig-paren">(</span><em>replacement='.png'</em>, <em>save=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.replace_extensions_of_json_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method replaces the file extension of the images to the replacement type given.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>replacement</strong> (<em>string</em>) – <dl class="docutils">
+<dt>(Default = .png)</dt>
+<dd>This is the variable to replace the extensions with.</dd>
+</dl>
+</li>
+<li><strong>save</strong> (<em>bool</em>) – (Default = False)
+This is used to save the internal json data to the json file found at the path given using cvj_obj.json_path = “path/to/your/json”</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>dict</strong> – This returns the internal json data of the CVJ object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.save_internal_json">
+<code class="descname">save_internal_json</code><span class="sig-paren">(</span><em>save_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.save_internal_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method saves the internal json data dictionary.  This method is available
+when updates to the internal are done.  If the save_name variable is supplied it will
+be saved at that location with that name.  Else it will overwrite the json that was given
+to the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>save_name</strong> (<em>string</em>) – (Default value = None)
+This parameter is the name of the file.  While I am saying name, I mean it could be a
+file path plus the actual file name.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>dict</strong> –<ul class="simple">
+<li>The internal json dictionary.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.transfer_negatives_to_other_json">
+<code class="descname">transfer_negatives_to_other_json</code><span class="sig-paren">(</span><em>path_to_images=None</em>, <em>cvj_obj=None</em>, <em>json_data=None</em>, <em>json_path=None</em>, <em>save=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.transfer_negatives_to_other_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method looks for negative sample type images in the internal json data
+that was created by the Painter class and then transfers those images to
+another json that is supplied via a path to a json file or the actual data from
+the json to be transferred to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path_to_images</strong> (<em>string</em>) – (Default = None)
+This is the path that needs to be pointing to the negative images.  This is used to get
+the path names and check the images for height and width.  If an error occurs during the check
+it means that the file wasn’t read correctly be opencv and your file may be corrupt.</li>
+<li><strong>cvj_obj</strong> (<a class="reference internal" href="#cvjson.cvj.CVJ" title="cvjson.cvj.CVJ"><em>CVJ</em></a>) – (Default value = None)
+This argument is for a CVJ object that has already been loaded with a json path
+or json data.  If you need to know what the CVJ object is read “Introduction to the
+CVJ”</li>
+<li><strong>json_data</strong> (<em>dictionary</em>) – (Default value = None)
+This value is used to transfer the negative images over to a dictionary that
+is already COCO formatted.  So if the user calling this method has loaded a json
+file already</li>
+<li><strong>json_path</strong> (<em>string</em>) – (Default value = None)
+This is a path to a COCO formatted json file.  In this method it is used to create
+a CVJ object</li>
+<li><strong>save</strong> (<em>bool</em>) – (Default value = None)
+This argument is used to save the internal json at the json path supplied to the object
+that has called this method.  It is defaulted to False becuase it could take a while to
+save.  This is up for the user to decide.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>CVJ</strong> (<em>CVJ</em>) – The first return value is “cvj_obj” which is a CVJ object.  This holds
+the transferred images now and will need to be saved by the user.  If a json path
+was supplied here, upon returning the user can call teh “save_internal_json()” and
+it will save it where the json file is. If needing to understand what
+the CVJ object is refer to “Introduction to the CVJ”.</li>
+<li><strong>list</strong> (<em>list</em>) – The second return value is “imgs” which is a list of the images that have been
+transferred to the supplied json data.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.update_images">
+<code class="descname">update_images</code><span class="sig-paren">(</span><em>list_of_paths</em>, <em>remove=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.update_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method updates the image annotations within the json_data that is stored within
+this CVJ object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>list_of_paths</strong> (<em>list</em>) – This parameter is a list of paths to the images that the user is wanting to input
+in to the internal json data.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.xywh_to_xyxy">
+<code class="descname">xywh_to_xyxy</code><span class="sig-paren">(</span><em>bboxes</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.xywh_to_xyxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method converts the bounding boxes of a numpy array in the format
+[[x, y, width, height]] to the format [[x1, y1, x2, y2]]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bboxes</strong> (<em>numpy array</em>) – This is the numpy array for bounding boxes in the format of [[x, y, width, height]]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>numpy array</strong> –<ul class="simple">
+<li>This is the numpy array for bounding boxes in the format of [[x1, y1, x2, y2]]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy array</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>This code takes the bounding boxes in the
+form of a numpy array with the format
+x, y, width, and height. For example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span>       <span class="o">=</span> <span class="n">bboxes</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#is all of the x&#39;s in the array</span>
+<span class="n">y</span>       <span class="o">=</span> <span class="n">bboxes</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#is all of the y&#39;s in the array</span>
+<span class="n">widths</span>  <span class="o">=</span> <span class="n">bboxes</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="c1">#is all of the w&#39;s in the array</span>
+<span class="n">heights</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span> <span class="c1">#is all of the h&#39;s in the array</span>
+</pre></div>
+</div>
+<p>Directly below is somewhat how your array will have to look like</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="p">[</span><span class="o">....</span><span class="p">],</span>
+<span class="p">[</span><span class="o">....</span><span class="p">]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cvjson.cvj.CVJ.xyxy_to_xywh">
+<code class="descname">xyxy_to_xywh</code><span class="sig-paren">(</span><em>xyxy</em><span class="sig-paren">)</span><a class="headerlink" href="#cvjson.cvj.CVJ.xyxy_to_xywh" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method converts the bounding boxes of a numpy array in the format
+[[x1, y1, x2, y2]] to the format [[x, y, width, height]]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>xyxy</strong> (<em>numpy array</em>) – This is the numpy array for bounding boxes in the format of [[x1, y1, x2, y2]]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>numpy array</strong> –<ul class="simple">
+<li>This is the numpy array for bounding boxes in the format of [[x, y, width, height]]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="extensions.html" class="btn btn-neutral float-right" title="extensions package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral" title="Module_Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Benjamin Anderson Garrard.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
