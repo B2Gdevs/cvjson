@@ -1,8 +1,4 @@
-'''
-Author: Benjamin Anderson Garrard
-
-Official documentation https://bengarrard.bitbucket.io/
-
+"""
 This script creates a handle object for json
 in the COCO format.  The aim for this handle is
 to make redundant code less redundant, safer, 
@@ -41,17 +37,18 @@ Structure this library uses is as follows.
                     }],
 
 More information on how this structure is chosen read "Introduction to the CVJ"
-'''
+
+Author: Benjamin Anderson Garrard
+"""
 
 import os
 import json
-from tqdm import tqdm
-import multiprocessing
-import copy
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
+from tqdm import tqdm
+from collections import defaultdict
 
  
 class CVJ():
@@ -85,14 +82,14 @@ class CVJ():
     IMID_2_FPATH = 5
     IMID_2_IMATTR = 6
     CLID_2_ANNS = 7
-    
 
-    ## creating negative category id based on phone keypad and the letters in negative 63428483
+    # creating negative category id based on phone keypad and the letters in
+    #  negative 63428483
     NEGATIVE_CLASS = 63428483
 
     def __init__(self, json_path=None, image_folder_path=None):
         self._json_path = None
-        self._json_data = None  
+        self._json_data = None 
         self._image_folder_path = None
         self._image_class_counts_path = None
         self._class_to_filepath_data = None
@@ -105,15 +102,13 @@ class CVJ():
         self._image_id_2_image_attribs = None
         self._class_id_2_anns_dict = None
 
-        if json_path != None:
-            self.json_path = json_path # Calling the setter
-            self._json_data = self.__load_coco_json()
+        if json_path is not None:
+            self.json_path = json_path
+            self._json_data = self.load_json(json_path)
 
+        if image_folder_path is not None:
+            self.image_folder_path = image_folder_path
 
-        if image_folder_path != None:
-            self.image_folder_path = image_folder_path # Calling the setter
-
-    ######################################################### Object Dictionary Mapping
     def __setitem__(self, key, item):
         self._json_data[key] = item
 
@@ -133,8 +128,8 @@ class CVJ():
         return (key for key in self._json_data.keys())
 
     def __contains__(self, key):
-        
         return key in self._json_data
+
     def clear(self):
         """
         This function will clear everything from the object.
@@ -157,65 +152,42 @@ class CVJ():
         return self._json_data.clear()
 
     def copy(self):
-        """
-        Function that is exactly the same as found in a dict
-        """
+        """Function that is exactly the same as found in a dict."""
         return self._json_data.copy()
 
     def has_key(self, k):
-        """
-        Function that is exactly the same as found in a dict
-        """
+        """Function that is exactly the same as found in a dict."""
         return k in self._json_data
 
     def update(self, *args, **kwargs):
-        """
-        Function that is exactly the same as found in a dict
-        """
+        """Function that is exactly the same as found in a dict."""
         return self._json_data.update(*args, **kwargs)
 
     def keys(self):
-        """
-        Function that is exactly the same as found in a dict
-        """
-
+        """Function that is exactly the same as found in a dict."""
         return self._json_data.keys()
 
     def values(self):
-        """
-        Function that is exactly the same as found in a dict
-        """
+        """Function that is exactly the same as found in a dict."""
         return self._json_data.values()
 
     def items(self):
-        """
-        Function that is exactly the same as found in a dict
-        """
+        """Function that is exactly the same as found in a dict."""
         return self._json_data.items()
 
     def pop(self, key):
-        """
-        Function that is exactly the same as found in a dict
-        """
+        """Function that is exactly the same as found in a dict."""
         return self._json_data.pop(key)
-    
-    
+
     def setdefault(self, key, value=None):
-        """
-        Function that is exactly the same as found in a dict
-        """
-        if value == None:
+        """Function that is exactly the same as found in a dict."""
+        if value is None:
             return self._json_data.setdefault(key)
         else:
             return self._json_data.setdefault(key, value)
-    ######################################################### Object Dictionary Mapping
 
     def clear_dicts(self):
-        """
-        This method clears the dicts that are stored within the cvj object.  This is
-        used when the object has changed it's data in some way.
-        """
-
+        """Clear all saved states of dicts in memory."""
         self._image_id_2_anns_dict = None
         self._class_id_2_name_dict = None
         self._class_name_2_id_dict = None
@@ -227,49 +199,29 @@ class CVJ():
 
     @property
     def json_path(self):
-        """
-        Getter
-        """
         return self._json_path
 
     @json_path.setter
     def json_path(self, path):
-
         """
-        This method is the setter method for when assigning the the json path to the object.  
-        It works just like an attribute in all languages where you would have someobject.attribute = some_variable.
-
-        Now the cool thing is that, in python, this is how the setter method is called.  When this method is called
-        it checks if the supplied json path is to a file, then it loads it in to the object, then it checks for the keys
-        "images", "annotations", and "categories".  It throws a more human error message when there is a key error
-        , which if you don't know means that the key doesn't exist in the json that was supplied, or at least not at the
-        main structure of it.  Refer to "Introduction to the CVJ" and read the "COCO Format Needed Don’t Skip This Section" section, if 
-        you have errors there.
-
-        Now the error message that is thrown is a human error message plus the traceback to let you know where the error occurred, just in
-        case it was in an extension or your knee deep in code.
+        Set the path to the JSON dataset file.
 
         Parameters
         ----------
         path : string
-             The path must be to a COCO formatted string just like the format found in
-             the "Introduction to the CVJ" html page and the "COCO Format Needed Don’t Skip This Section" section.
+             The path must be a COCO formatted JSON similar to what is found
+             at the top of this script.
 
-
-        Example
-        -------
-
-        This is the setter method that is called when
-        the handle is used like this:
-
+        Example Usage
+        -------------
         .. code:: python
-        
+
             json_handle.json_path = "path/to/file.json"
         """
 
         if os.path.isfile(path):
             self._json_path = path
-            self._json_data = self.__load_coco_json()
+            self._json_data = self.load_json(self.json_path)
             self._image_id_2_anns_dict = None
             self._class_id_2_name_dict = None
             self._class_name_2_id_dict = None
@@ -283,8 +235,8 @@ class CVJ():
                 self._json_data["annotations"]
                 self._json_data["categories"]
             except KeyError as e:
-                print("\n\nYou don't have a COCO formatted JSON here.  The error was a nonexistent key = {}".format(e))
-                print("This exception occurred when trying to load your JSON.\n\n")
+                print("\n\nYou have input an ill formatted COCO formatted JSON. "
+                      "The error was a nonexistent key = {}".format(e))
                 raise
         else:
             print("\n\nThe path supplied is not a file\n\n")
@@ -297,29 +249,22 @@ class CVJ():
     @image_folder_path.setter
     def image_folder_path(self, path):
         """
-        This is a seeter method for the image_folder_path
-        variable.  See example below for how to use.
+        Set the path to the image folder that corresponds to the given JSON
+        dataset file.
 
         Parameters
         ----------
         path : string
-             The path must be to the image folder that is associated with the json file that was supplied
-             to the this object and by this I mean the object that is currently calling this method.
-            
+             The path to the images of the dataset.
 
-        This is the setter method that is called when
-        the handle is used like this:
-        
-        Example
-        -------
+        Example Usage
+        -------------
         .. code:: python
-        
-            json_handle.image_folder_path = "path/to/images"
 
+            json_handle.image_folder_path = "path/to/images"
         """
 
-
-        if path != None:
+        if path is not None:
             if os.path.isdir(path):
                 self._image_folder_path = path
                 self._imageid_to_filepath_dict = None
@@ -329,12 +274,10 @@ class CVJ():
 
     @property
     def image_class_counts_path(self):
-        
         return self._class_to_filepath_path
 
     @image_class_counts_path.setter
-    def image_class_counts_path(self, path):     #TODO: replace this method with something more intuitive.
-
+    def image_class_counts_path(self, path):
         """
         This is a very interesting attribute.  This attribute
         can only be generated when you use the Cropper Class
@@ -342,27 +285,20 @@ class CVJ():
         actually generates a file called image_class_counts.json.
         That file actually contains the filepaths to the images
         rather than the count.
-        
+
         TODO: Change the "image_class_counts.json" to something more intuitive
 
         Parameters
         ----------
         path : string
-              The file path that this is referring to is the file that is called image_class_counts.json
-            
+              The file path that this is referring to is the file that is 
+              called image_class_counts.json.
 
-        Returns
-        -------
-
-        This is the setter method that is called when
-        the handle is used like this:
-        
-        Example
-        -------
+        Example Usage
+        -------------
         .. code:: python
-        
-            json_handle.class_to_filepath_path = "path/to/filepath.json"
 
+            json_handle.class_to_filepath_path = "path/to/filepath.json"
         """
 
         if os.path.isfile(path):
@@ -372,287 +308,190 @@ class CVJ():
         else:
             print("The path supplied is not a file")
             print(path)
-    
 
     def load_json(self, path):
         """
-        This is just a helper method that loads external
-        files into data and is returned to the user.  It
-        does not get stored in to the object.  The path to
-        the json must be set to load new json data in the
-        object.
+        Convert path to JSON file to a dictionary and return it.  This method
+        does not store the data.  Use the setter method of CVJ to do so.
 
         Parameters
         ----------
-        path : string
-             This path must be to any valid json file.
-            
+        path: string
+            This path must be to any valid json file.
 
         Returns
         -------
         dict: dict
-            * keys   = User defined
-
-            * values = User defined
-
+            Loaded JSON data.
         """
         assert os.path.isfile(path), path
         with open(path, 'r') as infile:
             jsdat = json.load(infile)
         return jsdat
 
-    def __load_coco_json(self): # self explanatory
-        """ 
-        This method loads the internal json path
+    def get_image_ids(self):
         """
-        assert os.path.isfile(self.json_path), self.json_path
-        with open(self.json_path, 'r') as infile:
-            jsdat = json.load(infile)
-        return jsdat
-
-
-    def get_image_ids(self): # self explanatory
-        """ 
-        This method returns the image id's from the internal json data 
-        of the CVJ object
-
-        Parameters
-        ----------
-
+        Return a list of all image IDs in the CVJ object.
 
         Returns
         -------
         list: list
-
+            A list of image ids.
         """
-        return self.get_image_id_2_image_attribs().keys()
+        return list(self.get_image_id_2_image_attribs().keys())
 
     def get_filenames(self):
-        """        
-        This method returns the filnames of images from the internal json data 
-        of the CVJ object.
-
-        Parameters
-        ----------
-
+        """
+        Return a list of all filenames in the CVJ object.
 
         Returns
         -------
         list: list
-
+            A list of filenames.
         """
-        return self.get_filename_2_image_id().keys()
+        return list(self.get_filename_2_image_id().keys())
 
     def get_annotations(self):
-        """        
-        This method returns all of the annotations from the internal json data
-        of the CVJ object.
-
-        Parameters
-        ----------
-
+        """
+        Return all annotations found in the CVJ object.
 
         Returns
         -------
         list: list
-
+            A list of annotations.
         """
-
-
-        anns = [ann for ann in self._json_data["annotations"]]
-        return anns
+        return self._json_data["annotations"]
 
     def get_category_ids(self):
-        """        
-        This method returns all of the category ids from the internal json data
-        of the CVJ object.
-
-        Parameters
-        ----------
-
+        """
+        Return a list of all the category IDs in the CVJ object.
 
         Returns
         -------
         list: list
-
+            A list of category IDs.
         """
-        return self.get_class_id_2_name().keys()
+        return list(self.get_class_id_2_name().keys())
 
     def get_category_names(self):
-        """        
-        This method returns all of the category names from the internal json data
-        of the CVJ object.
-
-        Parameters
-        ----------
-
+        """
+        Return a list of all category names in the CVJ object.
 
         Returns
         -------
         list: list
-
+            A list of all category names.
         """
-        return self.get_class_id_2_name().values()
+        return list(self.get_class_id_2_name().values())
 
-    def get_dictionary(self, cvj_enum):
+    def get_dictionary(self, cvj_enum: int) -> dict:
         """
-        CVJ.IMID_2_ANNS = Image ID to Annoations
-        CVJ.CLID_2_NAME = Class ID to Class Name
-        CVJ.CLNAME_2_CLID = Class name to Class ID
-        CVJ.IMID_2_FNAME = Image ID to File Name
-        CVJ.FNAME_2_IMID = File Name to Image ID
-        CVJ.IMID_2_FPATH = Image ID to File Path
-        CVJ.IMID_2_IMATTR = Image Id to Image Attributes
-        CVJ.CLID_2_ANNS = Class ID to Annotations
+        Return internal dictionary based on the enum given.
+
+        Parameters
+        ----------
+        cvj_enum: int
+            An integer corresponding to a dictionary.  Named values are
+            available as psuedo-enums
+            CVJ.IMID_2_ANNS = Image ID to Annoations
+            CVJ.CLID_2_NAME = Class ID to Class Name
+            CVJ.CLNAME_2_CLID = Class name to Class ID
+            CVJ.IMID_2_FNAME = Image ID to File Name
+            CVJ.FNAME_2_IMID = File Name to Image ID
+            CVJ.IMID_2_FPATH = Image ID to File Path
+            CVJ.IMID_2_IMATTR = Image Id to Image Attributes
+            CVJ.CLID_2_ANNS = Class ID to Annotations
+
+        Returns
+        -------
+        dict
+            A dictionary that corresponds to the passed parameter.
         """
 
         if cvj_enum == CVJ.IMID_2_ANNS:
             return self.get_image_id_2_anns()
-
-        if cvj_enum == CVJ.CLID_2_NAME:
+        elif cvj_enum == CVJ.CLID_2_NAME:
             return self.get_class_id_2_name()
-
-        if cvj_enum == CVJ.CLNAME_2_CLID:
+        elif cvj_enum == CVJ.CLNAME_2_CLID:
             return self.get_class_name_2_id()
-
-        if cvj_enum == CVJ.IMID_2_FNAME:
+        elif cvj_enum == CVJ.IMID_2_FNAME:
             return self.get_image_id_2_filename()
-
-        if cvj_enum == CVJ.FNAME_2_IMID:
+        elif cvj_enum == CVJ.FNAME_2_IMID:
             return self.get_filename_2_image_id()
-
-        if cvj_enum == CVJ.IMID_2_FPATH:
+        elif cvj_enum == CVJ.IMID_2_FPATH:
             return self.get_image_id_2_filepath()
-
-        if cvj_enum == CVJ.IMID_2_IMATTR:
+        elif cvj_enum == CVJ.IMID_2_IMATTR:
             return self.get_image_id_2_image_attribs()
-
-        if cvj_enum == CVJ.CLID_2_ANNS:
+        elif cvj_enum == CVJ.CLID_2_ANNS:
             return self.get_class_id_2_anns()
 
-    def get_image_id_2_anns(self, img_id = None, json_data=None):
+    def get_image_id_2_anns(self, img_id=None) -> (dict or None, dict):
         """
-        This method creates a dictionary using the "image_id" as the key
-        and the value is the annotations list that is described at the beginning of this script.
-        If there is already one created it just returns the previously made one
-        to improve performance.
+        Return annotations associated with the given image id.  Also return
+        a dictionary containing all of the image ids and their annotations.
 
         Parameters
         ----------
-
         img_id : int
             (Default = None)
-            This is the image ID for an image that is in the JSON data of the object
-            or the supplied JSON data from the json_data variable.
-
-        json_data : dict
-            (Default value = None)
-            This is the loaded data from a COCO formatted JSON file.
-            * If this is supplied all data returned will be from this variable.
+            This is the image ID for an image that is in the JSON data of the
+            current CVJ object.
 
         Returns
         -------
-        dict: dict
-            This is only returned if img_id is not supplied to the method.
-                * keys   = image ids
-
-                * values = annotations associated with the image id
+        dict:
+            A dict with the image ID supplied and it's corresponding
+            annotations.
+        dict:
+            The internal dict has has all of the image IDs and their
+            corresponding annotations associated with those IDs.
         """
-        imgid2anns = {}
-        if json_data == None:
-            if self._image_id_2_anns_dict != None:
+        if self._image_id_2_anns_dict is None:
+            imgid2anns = defaultdict(list)
+            for ann in self._json_data["annotations"]:
+                imgid2anns[ann["image_id"]].append(ann)
 
-                if img_id == None:
-                    return self._image_id_2_anns_dict
+            self._image_id_2_anns_dict = dict(imgid2anns)
 
-                else:
-                    return self._image_id_2_anns_dict[img_id]
+        if img_id is not None:
+            return ({img_id: self._image_id_2_anns_dict[img_id]},
+                    self._image_id_2_anns_dict)
 
-            else:
-                
-                #print(self._json_data)
-                for ann in self._json_data["annotations"]:
-                    imid = ann["image_id"]
-                    if imid not in imgid2anns:
-                        imgid2anns[imid] = [ann,]
-                    else:
-                        imgid2anns[imid] += [ann,]
+        return None, self._image_id_2_anns_dict
 
-                self._image_id_2_anns_dict = imgid2anns
-        else:
-            for ann in json_data["annotations"]:
-                imid = ann["image_id"]
-                if imid not in imgid2anns:
-                    imgid2anns[imid] = [ann,]
-                else:
-                    imgid2anns[imid] += [ann,]
-
-        if img_id != None:
-                return imgid2anns[img_id]
-
-        else:
-            return imgid2anns
-    
-        return imgid2anns[img_id], imgid2anns
-
-    def get_class_id_2_name(self, class_id=None, json_data=None):
+    def get_class_id_2_name(self, class_id=None):
         """
-        This method creates a dictionary using the class id, AKA "category id", as the
-        keys and the category names, AKA class names, as the values.
-        
-        If there is already one created it just returns the previously made one
-        to improve performance.
+        Return class names associated with the given class id.  Also return
+        a dictionary containing all of the class ids and their annotations.
 
         Parameters
         ----------
-        class_id : ing
+        class_id : int
             (Default = None)
-            This is the class ID for a class that is in the JSON data of the object
-            or the supplied JSON data from the json_data variable.
-
-        json_data : dict
-            (Default value = None)
-            This is the loaded data from a COCO formatted JSON file.
-            * If this is supplied all data returned will be from this variable.
+            This is the class ID for a class that is in the JSON data of the
+            the current CVJ object.
 
         Returns
         -------
-        dict : dict
-            This is only returned if there is no class_id supplied to the method.
-                * keys   = category ids
-
-                * values = category names associated with each category id
-
+        dict:
+            A dict with the class ID supplied and it's corresponding
+            class name.
+        dict:
+            The internal dict has has all of the class IDs and their
+            corresponding class names associated with those class IDs.
         """
-        id2name = {}
-        if json_data == None:
-            if self._class_id_2_name_dict != None:
-                
-                if class_id == None:
-                    return self._class_id_2_name_dict
+        if self._class_id_2_name_dict is None:
+            id2name = defaultdict(list)
+            for cat in self._json_data["categories"]:
+                id2name[cat["id"]].append(cat)
 
-                else:
-                    return self._class_id_2_name_dict[class_id]
+            self._class_id_2_name_dict = dict(id2name)
 
-            else:
+        if class_id is not None:
+            return ({class_id: self._class_id_2_name_dict[class_id]},
+                    self._class_id_2_name_dict)
 
-                for cat in self._json_data["categories"]:
-                    id = cat["id"]
-                    if id not in id2name:
-                        id2name[id] = cat["name"]
-
-                self._class_id_2_name_dict = id2name
-        else:
-            for cat in json_data["categories"]:
-                id = cat["id"]
-                if id not in id2name:
-                    id2name[id] = cat["name"]
-
-        if class_id != None:
-            return id2name[class_id]
-
-        else:
-            return id2name
+        return None, self._class_id_2_name_dict
 
     def get_class_name_2_id(self, class_name=None, json_data=None):
         """
@@ -712,7 +551,6 @@ class CVJ():
             return name2id
         else:
             return name2id[class_name]
-
 
     def get_image_id_2_filename(self, img_id=None, json_data=None):
         """
@@ -780,7 +618,6 @@ class CVJ():
         return image_id2_filename
 
     def get_filename_2_image_id(self, filename=None, json_data=None):
-
         """
         This method creates a dictionary using the filename as the key and the image
         id as the value.
